@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,20 +8,12 @@ class Doctor extends Model
 {
     use HasFactory;
 
-    protected $table = 'doctores';
+    protected $table = 'consultorios';
 
     protected $fillable = [
         'nombre',
-        'apellido',
-        'especialidad',
-        'email',
-        'telefono',
+        'direccion',
     ];
-
-    public function Especilidad()
-    {
-        return $this->belongsTo(Especialidad::class);
-    }
 
     public function citasMedicas()
     {

@@ -9,26 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('doctores', function (Blueprint $table) {
+        Schema::create('consultorios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('apellido');
-            $table->string('email')->unique();
-            $table->string('telefono')->nullable();
-            // Cambia 'especialidad' por 'especialidades'
-            $table->foreignId('especialidad_id')->constrained('especialidades')->onDelete('cascade');
+            $table->string('direccion');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctores');
+        Schema::dropIfExists('consultorio');
     }
 };

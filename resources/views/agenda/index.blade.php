@@ -16,6 +16,12 @@
         <a href="{{ route('agenda.index', ['week' => $semana + 1]) }}" class="btn btn-primary">Semana Siguiente</a>
     </div>
 
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('agenda.dia', ['fecha' => \Carbon\Carbon::now()->format('Y-m-d')]) }}" class="btn btn-info">
+            Ver Citas del Día
+        </a>
+    </div>
+    
     <div class="table-responsive">
         <table class="table table-bordered text-center">
             <thead class="thead-light">

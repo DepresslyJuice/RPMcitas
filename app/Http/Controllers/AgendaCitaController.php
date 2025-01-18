@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Paciente;
+use App\Models\Doctor;
 use App\Models\AgendaCita;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -30,4 +32,19 @@ class AgendaCitaController extends Controller
 
         return view('agenda.index', compact('citasPorDia', 'semana', 'inicioSemana', 'finSemana'));
     }
+
+    public function citasDelDia(Request $request)
+    {
+        // Obtener la fecha actual o la indicada
+        $fecha = $request->input('fecha', Carbon::now()->format('Y-m-d'));
+
+        // Obtener citas del día
+        $citas = AgendaCita::whereDate('fecha', $fecha)
+            ->orderBy('hora_inicio')
+            ->get();
+
+        return view('agenda.dia', compact('citas', 'fecha'));
+    }
+
+    
 }

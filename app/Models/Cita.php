@@ -19,7 +19,8 @@ class CitaMedica extends Model
         'hora_inicio',
         'hora_final',
         'paciente_id',
-        'doctor_id'
+        'doctor_id',
+        'consultorio_id'
     ];
 
     // Relación con el modelo Paciente
@@ -32,6 +33,12 @@ class CitaMedica extends Model
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
+    }
+
+    // Relación con el modelo Consultorio
+    public function consultorio()
+    {
+        return $this->belongsTo(Consultorio::class);
     }
 
     // Obtener la duración de la cita en minutos
