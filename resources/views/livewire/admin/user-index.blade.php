@@ -1,12 +1,14 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <input type="text" wire:model="search" class="form-control" placeholder="Buscar usuarios..." />
+            <!-- Campo de entrada de búsqueda -->
+            <input wire:model="search" class="form-control" placeholder="Buscar usuarios..." />
 
+            <!-- Botón de búsqueda -->
+            <button wire:click="searchUsers" class="btn btn-primary mt-2">Buscar</button>
         </div>
 
         @if ($users->count())
-
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
@@ -31,18 +33,14 @@
                     </tbody>
                 </table>
             </div>
-        
-            
         @else
             <div class="card-body">
                 <strong>No hay registros...</strong>
-
             </div>
         @endif
 
         <div class="card-footer">
             {{ $users->links() }}
-
         </div>
     </div>
 </div>

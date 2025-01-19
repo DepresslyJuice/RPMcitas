@@ -14,16 +14,19 @@ class UserIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public function updatingSearch()
+    public function searchUsers()
     {
-        $this->resetPage();
-    } 
+        // No es necesario hacer nada aquí para la búsqueda
+        // El componente automáticamente manejará la búsqueda
+    }
+
 
     public function render()
     {
-        $users = User::where('name', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('email', 'LIKE', '%' . $this->search . '%')
-            ->paginate(8);
+
+        $users = User::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->search) . '%'])
+        ->orWhereRaw('LOWER(email) LIKE ?', ['%' . strtolower($this->search) . '%'])
+        ->paginate(8);
 
         return view('livewire.admin.user-index', compact('users'));
     }

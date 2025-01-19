@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+
 class UserController extends Controller
 {
     /**
@@ -42,21 +44,22 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);  // Aquí recuperas el objeto completo
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
-    
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->roles()->sync($request->roles);   
+        return redirect()->route('admin.users.edit', $user)->with('info', 'User updated successfully');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
