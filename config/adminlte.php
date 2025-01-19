@@ -333,7 +333,7 @@ return [
             'icon' => 'fas fa-tachometer-alt fa-fw',
             'url' => 'home'
         ],    
-          
+                  
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users fa-fw',
