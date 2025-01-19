@@ -6,6 +6,9 @@
 
             <!-- Botón de búsqueda -->
             <button wire:click="searchRoles" class="btn btn-primary mt-2">Buscar</button>
+
+            <!-- Botón para abrir el modal de creación de rol -->
+            <button wire:click="openCreateModal" class="btn btn-success mt-2 float-right">Crear Nuevo Rol</button>
         </div>
 
         @if ($roles->count())
@@ -24,11 +27,14 @@
                                 <td>{{ $role->id }}</td>
                                 <td>{{ $role->name }}</td>
                                 <td>
-                                    <!-- Botón para abrir el modal -->
                                     <button class="btn btn-primary" wire:click="edit({{ $role->id }})">
                                         Editar
                                     </button>
+                                    <button class="btn btn-danger"
+                                        wire:click="confirmDelete({{ $role->id }})">Eliminar</button>
+
                                 </td>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -45,8 +51,49 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    @if($selectedRole)
+    <!-- Modal de Creación de Rol -->
+    @if ($isCreateModalOpen)
+        <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5);">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Crear Nuevo Rol</h5>
+                        <button type="button" class="btn-close" wire:click="closeCreateModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form wire:submit.prevent="createRole">
+                            <!-- Nombre del rol -->
+                            <div class="form-group">
+                                <label for="newRoleName">Nombre del Rol</label>
+                                <input type="text" id="newRoleName" wire:model="newRoleName" class="form-control"
+                                    required />
+                            </div>
+
+                            <!-- Permisos (checkboxes para seleccionar) -->
+                            <div class="form-group">
+                                <label for="permissions">Permisos</label>
+                                @foreach ($permissions as $permission)
+                                    <div>
+                                        <input type="checkbox" wire:model="selectedPermissions"
+                                            value="{{ $permission->id }}" class="mr-1">
+                                        {{ $permission->name }}
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Crear Rol</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" wire:click="closeCreateModal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Modal de Edición de Rol (ya existe en tu código original) -->
+    @if ($selectedRole)
         <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5);">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -56,18 +103,18 @@
                     </div>
                     <div class="modal-body">
                         <form wire:submit.prevent="update">
-                            <!-- Nombre del rol -->
                             <div class="form-group">
                                 <label for="name">Nombre</label>
-                                <input type="text" id="name" class="form-control" value="{{ $selectedRole->name }}" />
+                                <input type="text" id="name" wire:model="selectedRole.name"
+                                    class="form-control" />
                             </div>
-                            
-                            <!-- Permisos (checkboxes para editar) -->
+
                             <div class="form-group">
                                 <label for="permissions">Permisos</label>
-                                @foreach($permissions as $permission)
+                                @foreach ($permissions as $permission)
                                     <div>
-                                        <input type="checkbox" wire:model="selectedPermissions" value="{{ $permission->id }}" class="mr-1">
+                                        <input type="checkbox" wire:model="selectedPermissions"
+                                            value="{{ $permission->id }}" class="mr-1">
                                         {{ $permission->name }}
                                     </div>
                                 @endforeach
@@ -83,4 +130,26 @@
             </div>
         </div>
     @endif
+
+    <!-- Modal de confirmación de eliminación -->
+    @if ($roleToDelete)
+        <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar Eliminación</h5>
+                        <button type="button" class="btn-close" wire:click="closeDeleteModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este rol?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" wire:click="closeDeleteModal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" wire:click="deleteRole">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
 </div>

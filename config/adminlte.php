@@ -333,6 +333,11 @@ return [
             'icon' => 'fas fa-tachometer-alt fa-fw',
             'url' => 'home'
         ],    
+        [
+            'text' => 'Clientes',
+            'icon' => 'fas fa-users fa-fw',
+            'url' => 'home'  // Asegúrate de que esta es la clase correcta
+        ], 
                   
         [
             'text' => 'Usuarios',
@@ -344,7 +349,6 @@ return [
             'icon' => 'fas fa-users fa-fw',
             'route' => 'admin.roles.index'  // Asegúrate de que esta es la clase correcta
         ], 
-
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
