@@ -9,6 +9,7 @@
 @stop
 
 @section('content')
+    @livewire('admin.user-index')
 @stop
 
 @section('css')

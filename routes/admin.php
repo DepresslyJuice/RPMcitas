@@ -9,7 +9,8 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index'])->name('admin.home');
 
 // Ruta de usuarios
-Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+Route::resource('users', UserController::class)->names('admin.users');
+
 
 // Ruta de roles
-Route::get('/roles', [RolesController::class, 'index'])->name('admin.roles.index');
+Route::resource('roles', RolesController::class)->names('admin.roles');
