@@ -6,6 +6,7 @@ use App\Models\User;
 use EstadoCitasSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Stringable;
 
 class DatabaseSeeder extends Seeder
 {

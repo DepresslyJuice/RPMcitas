@@ -1,13 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', '| Dashboard')
+@section('title', 'Dashboard')
+
+
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>AQUI ADMINISTRO ROLES</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    @livewire('admin.role-index')
+
 @stop
 
 @section('css')
@@ -16,5 +19,7 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <script>
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    </script>
 @stop

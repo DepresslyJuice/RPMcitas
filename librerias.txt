@@ -1,0 +1,21 @@
+composer require spatie/laravel-permission
+
+php artisan vendor:publish --provider="Acacha\AdminLTETemplateLaravel\AdminLteServiceProvider"
+
+composer require "acacha/admin-lte-template-laravel:^3.0"
+
+php artisan migrate:fresh --seed
+composer require laravel/ui
+
+
+npm install
+npm run dev
+
+
+
+DB_CONNECTION=pgsql
+DB_HOST=aws-0-us-west-1.pooler.supabase.com
+DB_PORT=5432
+DB_DATABASE=postgres
+DB_USERNAME=postgres.hgthgggjudlbsdmftrow
+DB_PASSWORD=proyecto_2025
