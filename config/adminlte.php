@@ -334,9 +334,9 @@ return [
             'url' => 'home'
         ],    
         [
-            'text' => 'Clientes',
+            'text' => 'Pacientes',
             'icon' => 'fas fa-users fa-fw',
-            'url' => 'home'  // Asegúrate de que esta es la clase correcta
+            'route' => 'pacientes.index'  // Asegúrate de que esta es la clase correcta
         ], 
                   
         [
@@ -352,12 +352,12 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
+            'route' => 'cuentas.perfil.index',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
+            'text' => 'Cambiar Contraseña',
+            'route' => 'cuentas.password.index',
             'icon' => 'fas fa-fw fa-lock',
         ],
        
