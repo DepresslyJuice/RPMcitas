@@ -50,6 +50,8 @@
                                         <span>{{ $cita->descripcion }}</span><br>
                                         <small>Paciente: {{ $cita->paciente }}</small><br>
                                         <small>Doctor: {{ $cita->doctor }}</small>
+                                        <br>
+                                        <small>Consultorio: {{ $cita->consultorio }}</small>
                                     </div>
                                 @endforeach
                             @else
