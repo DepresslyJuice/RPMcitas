@@ -1,6 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('title', 'Citas del Día')
+@section('title', '| Dashboard')
+
+@section('content_header')
+    <h1>Dashboard</h1>
+@stop
 
 @section('content')
 <div class="container">
@@ -46,4 +50,14 @@
         <a href="{{ route('agenda.index') }}" class="btn btn-primary">Volver a la Agenda Semanal</a>
     </div>
 </div>
-@endsection
+@stop
+
+@section('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+@stop
+
+@section('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+@stop
+
