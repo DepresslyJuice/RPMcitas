@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use EstadoCitasSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Stringable;
@@ -19,8 +18,9 @@ class DatabaseSeeder extends Seeder
             ConsultoriosSeeder::class,
             EspecialidadesSeeder::class,
             DoctoresSeeder::class,
-            PacientesSeeder::class,
             TipoCitasSeeder::class,
+            PacientesSeeder::class,
+            EstadoCitasSeeder::class,
             CitasSeeder::class,
         ]);
     }
