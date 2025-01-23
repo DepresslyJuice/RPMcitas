@@ -12,6 +12,7 @@ use App\Http\Controllers\Perfil\PerfilController;
 
 
 
+
 Route::get('/agenda', [AgendaCitaController::class, 'index'])->name('agenda.index');
 
 Route::get('/agenda/dia', [AgendaCitaController::class, 'citasDelDia'])->name('agenda.dia');
