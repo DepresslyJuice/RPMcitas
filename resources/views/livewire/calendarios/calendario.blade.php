@@ -43,19 +43,21 @@
                             <td>
                                 @if (isset($citasPorDia[$dia]))
                                     @foreach ($citasPorDia[$dia] as $cita)
-                                        <div class="mb-3 p-2 border rounded bg-light">
-                                            {{-- <strong>{{ $cita->hora_inicio }} - {{ $cita->hora_final }}</strong><br>
-                                            <span>{{ $cita->descripcion }}</span><br>
-                                            <small>Paciente: {{ $cita->paciente }}</small><br>
-                                            <small>Doctor: {{ $cita->doctor }}</small>
+                                        <a href="www.google.com"><div class="mb-3 p-2 border rounded bg-light">
+                                            {{-- <strong>{{ $citas->hora_inicio }} - {{ $citas->hora_final }}</strong><br>
+                                            <span>{{ $citas->descripcion }}</span><br>
+                                            <small>Paciente: {{ $citas->paciente }}</small><br>
+                                            <small>Doctor: {{ $citas->doctor }}</small>
                                             <br>
-                                            <small>Consultorio: {{ $cita->consultorio }}</small> --}}
+                                            <small>Consultorio: {{ $citas->consultorio }}</small> --}}
 
                                             <strong>{{ $cita['hora_inicio'] }} - {{ $cita['hora_final'] }}</strong><br>
-                                            <span>{{ $cita['descripcion'] }}</span><br>
+                                            <span>{{ $cita['tipo_cita'] }}</span><br>
                                             <small>Paciente: {{ $cita['paciente'] }}</small><br>
                                             <small>Doctor: {{ $cita['doctor'] }}</small>
+                                            <small>{{$cita['descripcion']}}</small>
                                         </div>
+                                        </a>
                                     @endforeach
                                 @else
                                     <p>No hay citas</p>
@@ -76,7 +78,7 @@
         <h1 class="text-center">Citas del Día: {{ \Carbon\Carbon::parse($fecha)->format('d M, Y') }}</h1>
 
         @if (!isset($citas))
-        
+
             <div class="alert alert-warning text-center">
                 No hay citas para este día.
             </div>
@@ -101,6 +103,7 @@
                 <tbody>
                     @foreach ($citas as $cita)
                         <tr>
+
                             <td>{{ $cita['hora_inicio'] }}</td>
                             <td>{{ $cita['hora_final'] }}</td>
                             <td>{{ $cita['descripcion'] }}</td>

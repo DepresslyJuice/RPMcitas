@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ConsultoriosSeeder::class,
             EspecialidadesSeeder::class,
-            DoctoresSeeder::class,
-            TipoCitasSeeder::class,
-            PacientesSeeder::class,
             EstadoCitasSeeder::class,
+            TipoCitasSeeder::class,
+            DoctoresSeeder::class,
+            PacientesSeeder::class,
             CitasSeeder::class,
         ]);
     }

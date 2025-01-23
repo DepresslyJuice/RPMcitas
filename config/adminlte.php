@@ -308,7 +308,7 @@ return [
 
         [
             'type' => 'fullscreen-widget',
-        
+
         ],
         [
             'type' => 'fullscreen-widget',
@@ -332,23 +332,27 @@ return [
             'text' => 'Calendario',
             'icon' => 'fas fa-tachometer-alt fa-fw',
             'url' => 'home'
-        ],    
+        ],
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-users fa-fw',
             'route' => 'pacientes.index'  // Asegúrate de que esta es la clase correcta
-        ], 
-                  
+
+        ],
+
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users fa-fw',
-            'route' => 'admin.users.index'  // Asegúrate de que esta es la clase correcta
-        ], 
+            'route' => 'admin.users.index',  // Asegúrate de que esta es la clase correcta
+            'can' => 'admin.users.index'
+        ],
         [
             'text' => 'Roles',
             'icon' => 'fas fa-users fa-fw',
-            'route' => 'admin.roles.index'  // Asegúrate de que esta es la clase correcta
-        ], 
+            'route' => 'admin.roles.index',  // Asegúrate de que esta es la clase correcta
+            'can' => 'admin.users.index',
+
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -360,7 +364,7 @@ return [
             'route' => 'cuentas.password.index',
             'icon' => 'fas fa-fw fa-lock',
         ],
-       
+
         ['header' => 'labels'],
         [
             'text' => 'important',
