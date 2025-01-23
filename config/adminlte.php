@@ -342,12 +342,14 @@ return [
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users fa-fw',
-            'route' => 'admin.users.index'  // Asegúrate de que esta es la clase correcta
+            'route' => 'admin.users.index',  // Asegúrate de que esta es la clase correcta
+            'can' => 'admin.roles.index'
         ], 
         [
             'text' => 'Roles',
             'icon' => 'fas fa-users fa-fw',
-            'route' => 'admin.roles.index'  // Asegúrate de que esta es la clase correcta
+            'route' => 'admin.roles.index',  // Asegúrate de que esta es la clase correcta
+            'can' => 'admin.roles.index'
         ], 
         ['header' => 'account_settings'],
         [
