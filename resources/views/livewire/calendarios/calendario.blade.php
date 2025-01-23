@@ -23,15 +23,20 @@
         <div class="table-responsive">
             <table class="table table-bordered text-center">
                 <thead class="thead-light">
-                    <tr>
-                        <th>Lunes</th>
-                        <th>Martes</th>
-                        <th>Miércoles</th>
-                        <th>Jueves</th>
-                        <th>Viernes</th>
-                        <th>Sábado</th>
-                        <th>Domingo</th>
-                    </tr>
+                <tr>
+                    @php
+                        $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+                    @endphp
+
+                    @foreach ($diasSemana as $index => $dia)
+                        <th>
+                            <div>{{ $dia }}</div>
+                            <div class="text-muted">
+                                {{ $inicioSemana->copy()->addDays($index)->format('d') }}
+                            </div>
+                        </th>
+                    @endforeach
+                </tr>
                 </thead>
                 <tbody>
                     <tr>
