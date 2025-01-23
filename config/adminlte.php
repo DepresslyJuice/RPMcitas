@@ -344,25 +344,19 @@ return [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users fa-fw',
             'route' => 'admin.users.index',  // Asegúrate de que esta es la clase correcta
-<<<<<<< HEAD
+
             'can' => 'admin.users.index'
         ],
-=======
-            'can' => 'admin.roles.index'
-        ], 
->>>>>>> a815dbe1083f04819a2992115813ad46a6392278
+
         [
             'text' => 'Roles',
             'icon' => 'fas fa-users fa-fw',
             'route' => 'admin.roles.index',  // Asegúrate de que esta es la clase correcta
-<<<<<<< HEAD
+
             'can' => 'admin.users.index',
 
         ],
-=======
-            'can' => 'admin.roles.index'
-        ], 
->>>>>>> a815dbe1083f04819a2992115813ad46a6392278
+        
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
