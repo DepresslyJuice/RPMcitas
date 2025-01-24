@@ -12,30 +12,23 @@ class AgendaCitaController extends Controller
 {
     public function index(Request $request)
     {
-        // Convertir el valor de la semana a entero (por defecto 0)
         $semana = (int) $request->input('week', 0);
-    
-        // Calcular el inicio y fin de la semana
         $inicioSemana = Carbon::now()->startOfWeek()->addWeeks($semana);
         $finSemana = Carbon::now()->endOfWeek()->addWeeks($semana);
-    
-        // Obtener citas dentro del rango de fechas
+
+        // Recuperar las citas y asegurarse de incluir el ID
         $citas = AgendaCita::whereBetween('fecha', [$inicioSemana, $finSemana])
             ->orderBy('fecha')
             ->orderBy('hora_inicio')
-            ->get();
-    
-        // Agrupar las citas por día de la semana
+            ->get(['cita_id', 'hora_inicio', 'hora_final', 'tipo_cita', 'paciente', 'doctor', 'descripcion', 'fecha']);
+
         $citasPorDia = $citas->groupBy(function ($cita) {
             return Carbon::parse($cita->fecha)->format('l'); // Día de la semana en inglés
         });
-    
-        // Verificar datos
-        // dd($citasPorDia, $inicioSemana, $finSemana);
-    
+
         return view('agenda.index', compact('citasPorDia', 'semana', 'inicioSemana', 'finSemana'));
     }
-    
+
 
     public function citasDelDia(Request $request)
     {
@@ -49,6 +42,4 @@ class AgendaCitaController extends Controller
 
         return view('agenda.dia', compact('citas', 'fecha'));
     }
-
-    
 }

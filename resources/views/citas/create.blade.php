@@ -15,7 +15,7 @@
                 <select class="form-select" id="paciente_id" name="paciente_id" required>
                     <option value="" selected disabled>Selecciona un paciente</option>
                     @foreach ($pacientes as $paciente)
-                        <option value="{{ $paciente->cedula }}">{{ $paciente->nombres }} {{ $paciente->apellidos }}</option>
+                        <option value="{{ $paciente->cedula }}">{{ $paciente->nombres }} {{ $paciente->apellidos }} - {{$paciente->cedula}}</option>
                     @endforeach
                 </select>
             </div>
@@ -26,7 +26,7 @@
                 <select class="form-select" id="doctor_id" name="doctor_id" required>
                     <option value="" selected disabled>Selecciona un doctor</option>
                     @foreach ($doctores as $doctor)
-                        <option value="{{ $doctor->cedula }}">{{ $doctor->nombres }} {{ $doctor->apellidos }}</option>
+                        <option value="{{ $doctor->cedula }}">{{ $doctor->nombres }} {{ $doctor->apellidos }} - {{$paciente->cedula}}</option>
                     @endforeach
                 </select>
             </div>

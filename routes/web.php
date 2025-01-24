@@ -19,6 +19,9 @@ Route::get('/agenda', [AgendaCitaController::class, 'index'])->name('agenda.inde
 Route::get('/agenda/dia', [AgendaCitaController::class, 'citasDelDia'])->name('agenda.dia');
 Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
 Route::post('/agenda/store', [AgendaCitaController::class, 'store'])->name('agenda.store');
+Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
+
+
 
 
 Route::get('/', [HomeController::class, 'index']);

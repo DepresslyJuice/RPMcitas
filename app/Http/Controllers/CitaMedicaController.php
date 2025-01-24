@@ -97,6 +97,12 @@ class CitaMedicaController extends Controller
      */
     public function update(Request $request, CitaMedica $cita)
     {
+        $request->merge([
+            'hora_inicio' => date('H:i', strtotime($request->hora_inicio)),
+            'hora_fin' => date('H:i', strtotime($request->hora_fin))
+        ]);
+
+
         $request->validate([
             'paciente_id' => 'required|exists:pacientes,cedula',
             'doctor_id' => 'required|exists:doctores,cedula',
@@ -120,14 +126,18 @@ class CitaMedicaController extends Controller
                             ->where('hora_fin', '>=', $request->hora_fin);
                     });
             })
-            ->where('id', '!=', $cita->id)
+            ->where('id', '!=', $cita->id) // Excluir la cita actual
             ->exists();
 
         if ($existeCita) {
-            return back()->withErrors(['error' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
+            return back()
+                ->withErrors(['horario' => 'El doctor ya tiene una cita en el horario seleccionado.'])
+                ->withInput();
         }
 
+        // Actualizar la cita
         $cita->update($request->all());
+
         return redirect()->route('citas.index')->with('success', 'Cita médica actualizada exitosamente.');
     }
 
