@@ -5,6 +5,9 @@ namespace App\Livewire\Calendarios;
 use Livewire\Component;
 use Carbon\Carbon;
 use App\Models\AgendaCita;
+use App\Models\Doctor;
+use App\Models\Consultorio;
+use App\Models\TipoCita;
 
 class CalendarioSemanal extends Component
 {
@@ -13,40 +16,63 @@ class CalendarioSemanal extends Component
     public $finSemana;
     public $citasPorDia = [];
     public $fecha;
+    public $consultorioId = null;
+    public $tipoCitaId = null;
+    public $doctorId = null;
 
     public function mount()
     {
-        $this->fecha = Carbon::now()->format('Y-m-d'); // Fecha inicial
+        $this->fecha = Carbon::now()->format('Y-m-d');
+        $this->actualizarSemana();
+    }
+
+    public function aplicarFiltros()
+    {
         $this->actualizarSemana();
     }
 
     public function actualizarSemana()
     {
-        // Calcular inicio y fin de la semana
         $this->inicioSemana = Carbon::now()->startOfWeek()->addWeeks($this->semana);
         $this->finSemana = Carbon::now()->endOfWeek()->addWeeks($this->semana);
 
-        // Obtener citas dentro del rango
-        $citas = AgendaCita::whereBetween('fecha', [$this->inicioSemana, $this->finSemana])
-            ->orderBy('fecha')
+        $citasQuery = AgendaCita::whereBetween('fecha', [$this->inicioSemana, $this->finSemana]);
+
+        // Convertir a entero para comparación precisa
+        if ($this->consultorioId) {
+            $citasQuery->where('consultorio', strval($this->consultorioId));
+        }
+
+        if ($this->tipoCitaId) {
+            $citasQuery->where('tipo_cita', strval($this->tipoCitaId));
+        }
+
+        if ($this->doctorId) {
+            $citasQuery->where('doctor', strval($this->doctorId));
+        }
+
+        $citas = $citasQuery->orderBy('fecha')
             ->orderBy('hora_inicio')
             ->get();
 
-        // Agrupar las citas por día de la semana
         $this->citasPorDia = $citas->groupBy(function ($cita) {
-            return Carbon::parse($cita->fecha)->format('l'); // Día en inglés
-        })->toArray(); // Convertir a array para evitar problemas en la vista
+            return Carbon::parse($cita->fecha)->format('l');
+        })->toArray();
+
     }
 
     public function cambiarSemana($direccion)
     {
-        // Incrementar o decrementar la semana
         $this->semana += $direccion;
         $this->actualizarSemana();
     }
 
     public function render()
     {
-        return view('livewire.calendarios.calendario-semanal');
+        $doctores = Doctor::all();
+        $consultorios = Consultorio::all();
+        $tiposCita = TipoCita::all();
+
+        return view('livewire.calendarios.calendario-semanal', compact('doctores', 'consultorios', 'tiposCita'));
     }
 }
