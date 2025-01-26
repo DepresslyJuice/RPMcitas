@@ -1,28 +1,36 @@
 <div id="calendario-semanal" class="container py-4">
-    <h1 class="text-center mb-4">Agenda Semanal</h1>
+    <h1 class="text-center mb-4" style="color: #000000;">Agenda Semanal</h1>
 
-    {{-- Controles de semana --}}
+    <!-- Controles de semana -->
     <div class="row justify-content-between align-items-center mb-4">
         <div class="col-auto">
-            <button wire:click="cambiarSemana(-1)" class="btn btn-primary">Semana Anterior</button>
+            <button wire:click="cambiarSemana(-1)" class="btn shadow" style="background-color: #17B1DC; color: white;" aria-label="Semana Anterior">
+                &laquo; Semana Anterior
+            </button>
         </div>
         <div class="col-auto">
-            <h5 class="text-center mb-0">{{ $inicioSemana->format('d M, Y') }} - {{ $finSemana->format('d M, Y') }}</h5>
+            <h5 class="text-center mb-0" style="color: #000000;">
+                {{ $inicioSemana->format('d M, Y') }} - {{ $finSemana->format('d M, Y') }}
+            </h5>
         </div>
         <div class="col-auto">
-            <button wire:click="cambiarSemana(1)" class="btn btn-primary">Semana Siguiente</button>
+            <button wire:click="cambiarSemana(1)" class="btn shadow" style="background-color: #17B1DC; color: white;" aria-label="Semana Siguiente">
+                Semana Siguiente &raquo;
+            </button>
         </div>
     </div>
 
-    {{-- Botón para ver citas del día --}}
+    <!-- Botón para ver citas del día -->
     <div class="d-flex justify-content-end mb-4">
-        <button wire:click="$dispatch('mostrar-diario')" class="btn btn-info">Ver Citas del Día</button>
+        <button wire:click="$dispatch('mostrar-diario')" class="btn shadow" style="background-color: #8F5499; color: white;" aria-label="Ver citas del día">
+            Ver Citas del Día
+        </button>
     </div>
 
-    {{-- Tabla de calendario semanal --}}
+    <!-- Tabla de calendario semanal -->
     <div class="table-responsive">
         <table class="table table-bordered text-center align-middle">
-            <thead class="thead-light">
+            <thead style="background-color: #17B1DC; color: white;">
                 <tr>
                     @php
                         $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -30,7 +38,7 @@
                     @foreach ($diasSemana as $index => $dia)
                         <th>
                             <div>{{ $dia }}</div>
-                            <div class="text-muted small">
+                            <div class="small" style="color: {{ $index >= 5 ? '#8F5499' : '#FFFFFF' }};">
                                 {{ $inicioSemana->copy()->addDays($index)->format('d') }}
                             </div>
                         </th>
@@ -42,18 +50,17 @@
                     @php
                         $dias = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                     @endphp
-                    @foreach ($dias as $dia)
-                        <td>
+                    @foreach ($dias as $index => $dia)
+                        <td style="background-color: {{ $index >= 5 ? '#F7EDF9' : '#E3F6FB' }};">
                             @if (isset($citasPorDia[$dia]))
                                 @foreach ($citasPorDia[$dia] as $cita)
-                                    <a href="{{ route('citas.show', $cita['cita_id']) }}" class="text-decoration-none">
-                                        <div class="mb-3 p-2 border rounded bg-light">
-                                            <strong>{{ $cita['hora_inicio'] }} - {{ $cita['hora_final'] }}</strong><br>
-                                            <span>{{ $cita['tipo_cita'] }}</span><br>
-                                            <small>Paciente: {{ $cita['paciente'] }}</small><br>
-                                            <small>Doctor: {{ $cita['doctor'] }}</small><br>
-                                            <small>{{ $cita['descripcion'] }}</small>
-                                        </div>
+                                    <a href="{{ route('citas.show', $cita['cita_id']) }}" 
+                                       class="text-decoration-none d-block mb-2 p-3 border rounded shadow-sm"
+                                       style="background-color: #ffffff; border-color: #17B1DC; color: #17B1DC;">
+                                        <strong class="d-block">{{ $cita['hora_inicio'] }} - {{ $cita['hora_final'] }}</strong>
+                                        <span class="d-block">{{ $cita['tipo_cita'] }}</span>
+                                        <small class="text-muted d-block">Paciente: {{ $cita['paciente'] }}</small>
+                                        <small class="text-muted d-block">Doctor: {{ $cita['doctor'] }}</small>
                                     </a>
                                 @endforeach
                             @else
