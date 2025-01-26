@@ -22,13 +22,15 @@
         </div>
     </div>
     <!-- Filtros -->
-    <div class="d-flex flex-wrap align-items-center mb-6" style="background-color: #cff5ff; padding: 10px; border-radius: 10px;
+    <div class="d-flex flex-wrap align-items-center mb-6"
+        style="background-color: #cff5ff; padding: 10px; border-radius: 10px;
     border-color: #17B1DC;">
         <h6>Filtrar por:</h6>
         <div class="col-md-3 col-sm-6 mb-3">
             <!-- Filtro de Doctor -->
             <h6>Doctor:</h6>
-            <select wire:model="doctorId" class="form-select">
+            <select wire:model="doctorId" class="form-select"
+                style="border-radius: 8px; border: 1px solid #17B1DC; padding: 8px; background-color: #f9fcff;">
                 <option value="">Todos los doctores</option>
                 @foreach ($doctores as $doctor)
                     <option value="{{ $doctor->nombres }} {{ $doctor->apellidos }}">{{ $doctor->nombres }}
@@ -37,10 +39,11 @@
             </select>
         </div>
 
-        <div class="col-md-3 col-sm-6 mb-3" >
+        <div class="col-md-3 col-sm-6 mb-3">
             <!-- Filtro de Consultorio -->
             <h6>Consultorio:</h6>
-            <select wire:model="consultorioId" class="form-select">
+            <select wire:model="consultorioId" class="form-select"
+                style="border-radius: 8px; border: 1px solid #17B1DC; padding: 8px; background-color: #f9fcff;">
                 <option value="">Todos los consultorios</option>
                 @foreach ($consultorios as $consultorio)
                     <option value="{{ $consultorio->nombre }}">{{ $consultorio->nombre }}</option>
@@ -51,7 +54,8 @@
         <div class="col-md-3 col-sm-6 mb-3">
             <!-- Filtro de Tipo de Cita -->
             <h6>Tipo Cita:</h6>
-            <select wire:model="tipoCitaId" class="form-select">
+            <select wire:model="tipoCitaId" class="form-select"
+                style="border-radius: 8px; border: 1px solid #17B1DC; padding: 8px; background-color: #f9fcff;">
                 <option value="">Todos los tipos de citas</option>
                 @foreach ($tiposCita as $tipoCita)
                     <option value="{{ $tipoCita->nombre }}">{{ $tipoCita->nombre }}</option>
@@ -125,30 +129,78 @@
         </table>
     </div>
     <style>
+        /* Base styles */
+        .table-responsive {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        /* Wide screen styles */
+        @media (min-width: 801px) {
+            .table tbody td a {
+                max-height: 200px;
+                overflow-y: auto;
+                transition: all 0.3s ease;
+            }
+        
+            .table tbody td a:hover {
+                transform: scale(1.02);
+                box-shadow: 0 5px 15px rgba(23, 177, 220, 0.2);
+            }
+        }
+        
+        /* Mobile styles */
         @media (max-width: 800px) {
             .table thead {
                 display: none;
             }
-
+        
             .table tbody,
             .table tr,
             .table td {
                 display: block;
                 width: 100%;
             }
-
+        
             .table td {
                 padding: 15px;
                 border: 1px solid #ddd;
+                position: relative;
+                background-color: #f9fcff !important;
             }
-
+        
             .table td:before {
                 content: attr(data-label);
                 font-weight: bold;
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 10px;
+                color: #17B1DC;
+                font-size: 1.1em;
             }
-            
         }
-    </style>
+        
+        /* Scrollbar customization for long screens */
+        .table-responsive::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #17B1DC;
+            border-radius: 4px;
+        }
+        </style>
 </div>
