@@ -7,17 +7,26 @@
 @stop
 
 @section('content')
-    @livewire('calendarios.calendario')
+    <div>
+        <div wire:ignore id="calendario-semanal">
+            <livewire:calendarios.calendario-semanal />
+        </div>
+        <div wire:ignore id="calendario-diario" style="display: none;">
+            <livewire:calendarios.calendario-diario />
+        </div>
+    </div>
 
-@stop
-
-@section('css')
-
-
-@stop
-
-@section('js')
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('mostrar-diario', () => {
+                document.getElementById('calendario-semanal').style.display = 'none';
+                document.getElementById('calendario-diario').style.display = 'block';
+            });
+
+            Livewire.on('mostrar-semanal', () => {
+                document.getElementById('calendario-semanal').style.display = 'block';
+                document.getElementById('calendario-diario').style.display = 'none';
+            });
+        });
     </script>
 @stop
