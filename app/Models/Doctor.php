@@ -9,23 +9,34 @@ class Doctor extends Model
 {
     use HasFactory;
 
-    protected $table = 'doctores';
+    protected $table = 'doctores'; 
 
+    protected $primaryKey = 'cedula'; 
+    public $incrementing = false; 
+    protected $keyType = 'string'; 
+
+    /**
+     * Campos asignables en la creación o actualización masiva.
+     */
     protected $fillable = [
-        'nombre',
-        'apellido',
-        'especialidad',
-        'email',
-        'telefono',
+        'cedula',         
+        'nombres',       // Nombre del doctor
+        'apellidos',     // Apellido del doctor
+        'email',         // Email del doctor
+        'telefono',      // Teléfono del doctor
     ];
 
-    public function Especilidad()
+    /**
+     * Relación muchos a muchos con Especialidades.
+     */
+    public function especialidades()
     {
-        return $this->belongsTo(Especialidad::class);
-    }
-
-    public function citasMedicas()
-    {
-        return $this->hasMany(CitaMedica::class);
+        return $this->belongsToMany(
+            Especialidad::class,   
+            'doctor_especialidad', 
+            'doctor_id',           
+            'especialidad_id'      
+        );
     }
 }
+

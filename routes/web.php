@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\RolesController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Perfil\PerfilController;
 use App\Http\Controllers\ConsultorioController;
+use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\DoctorController;
 
 
 
@@ -19,6 +21,9 @@ Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('cit
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
 
 Route::resource('consultorios', ConsultorioController::class);
+Route::resource('especialidades', EspecialidadController::class);
+Route::resource('doctores', DoctorController::class);
+
 
 
 
