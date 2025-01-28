@@ -176,7 +176,7 @@
         <div class="mt-4">
             @foreach ($citas as $cita)
                 <div class="cita-card">
-                    <h6>Paciente: <span>{{ $cita['paciente'] }}</span></h6>
+                    <h6>Paciente: <span>{{ $cita['paciente' ] }}</span></h6>
                     <p><span>Doctor:</span> {{ $cita['doctor'] }}</p>
                     <p><span>Tipo de Cita:</span> {{ $cita['tipo_cita'] }}</p>
                     <p><span>Hora:</span> {{ $cita['hora_inicio'] }} - {{ $cita['hora_final'] }}</p>
