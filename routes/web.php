@@ -9,7 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\RolesController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Perfil\PerfilController;
-
+use App\Http\Controllers\ConsultorioController;
 
 
 
@@ -20,6 +20,8 @@ Route::get('/agenda/dia', [AgendaCitaController::class, 'citasDelDia'])->name('a
 Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
 Route::post('/agenda/store', [AgendaCitaController::class, 'store'])->name('agenda.store');
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
+
+Route::resource('consultorios', ConsultorioController::class);
 
 
 

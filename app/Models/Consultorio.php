@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,8 +16,11 @@ class Consultorio extends Model
         'direccion',
     ];
 
+    /**
+     * Relación con el modelo CitaMedica.
+     */
     public function citasMedicas()
     {
-        return $this->hasMany(CitaMedica::class);
+        return $this->hasMany(CitaMedica::class, 'consultorio_id');
     }
 }
