@@ -13,11 +13,13 @@ class CreateAllTables extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('direccion');
+            $table->timestamps();
         });
 
         Schema::create('especialidades', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->timestamps();
         });
 
         Schema::create('doctores', function (Blueprint $table) {
@@ -26,6 +28,7 @@ class CreateAllTables extends Migration
             $table->string('apellidos');
             $table->string('telefono');
             $table->string('email');
+            $table->timestamps();
         });
 
         Schema::create('doctor_especialidad', function (Blueprint $table) {
@@ -34,6 +37,7 @@ class CreateAllTables extends Migration
             $table->unsignedBigInteger('especialidad_id');
             $table->foreign('especialidad_id')->references('id')->on('especialidades')->cascadeOnDelete();
             $table->primary(['doctor_id', 'especialidad_id']);
+            $table->timestamps();
         });
 
         Schema::create('pacientes', function (Blueprint $table) {
@@ -42,16 +46,19 @@ class CreateAllTables extends Migration
             $table->string('apellidos');
             $table->string('telefono');
             $table->date('fecha_nacimiento');
+            $table->timestamps();
         });
 
         Schema::create('tipo_citas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->timestamps();
         });
 
         Schema::create('estado_citas', function (Blueprint $table) {
             $table->id();
             $table->string('estado');
+            $table->timestamps();
         });
 
         Schema::create('citas', function (Blueprint $table) {
@@ -70,6 +77,7 @@ class CreateAllTables extends Migration
             $table->foreign('consultorio_id')->references('id')->on('consultorios')->cascadeOnDelete();
             $table->unsignedBigInteger('estado_citas_id');
             $table->foreign('estado_citas_id')->references('id')->on('estado_citas')->cascadeOnDelete();
+            $table->timestamps();
         });
 
         Schema::create('historias_clinicas', function (Blueprint $table) {
@@ -81,11 +89,13 @@ class CreateAllTables extends Migration
             $table->text('diagnostico');
             $table->text('tratamiento_planificado');
             $table->text('tratamiento_realizado');
+            $table->timestamps();
         });
 
         Schema::create('condiciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique();
+            $table->timestamps();
         });
 
         Schema::create('antecedentes_familiares', function (Blueprint $table) {
@@ -96,6 +106,7 @@ class CreateAllTables extends Migration
             $table->unsignedBigInteger('condicion_id');
             $table->foreign('condicion_id')->references('id')->on('condiciones')->cascadeOnDelete();
             $table->text('descripcion');
+            $table->timestamps();
         });
 
         Schema::create('antecedentes_personales', function (Blueprint $table) {
@@ -105,6 +116,7 @@ class CreateAllTables extends Migration
             $table->unsignedBigInteger('condicion_id');
             $table->foreign('condicion_id')->references('id')->on('condiciones')->cascadeOnDelete();
             $table->text('descripcion');
+            $table->timestamps();
         });
 
         Schema::create('signos_vitales', function (Blueprint $table) {
@@ -117,6 +129,7 @@ class CreateAllTables extends Migration
             $table->integer('frecuencia_respiratoria');
             $table->integer('saturacion_oxigeno');
             $table->dateTime('fecha_registro');
+            $table->timestamps();
         });
 
         Schema::create('evaluaciones_sistema_estomatognatico', function (Blueprint $table) {
@@ -130,6 +143,7 @@ class CreateAllTables extends Migration
             $table->text('tejidos_blandos');
             $table->text('articulaciones');
             $table->text('otros_hallazgos');
+            $table->timestamps();
         });
 
         Schema::create('odontogramas', function (Blueprint $table) {
@@ -138,6 +152,7 @@ class CreateAllTables extends Migration
             $table->foreign('historia_clinica_id')->references('id')->on('historias_clinicas')->cascadeOnDelete();
             $table->dateTime('fecha_creacion');
             $table->text('observaciones');
+            $table->timestamps();
         });
 
         Schema::create('dientes', function (Blueprint $table) {
@@ -147,6 +162,7 @@ class CreateAllTables extends Migration
             $table->integer('numero');
             $table->string('tipo');
             $table->string('posicion');
+            $table->timestamps();
         });
 
         Schema::create('superficies_dentales', function (Blueprint $table) {
@@ -156,6 +172,7 @@ class CreateAllTables extends Migration
             $table->string('superficie');
             $table->string('estado');
             $table->text('observaciones');
+            $table->timestamps();
         });
     }
 
