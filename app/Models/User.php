@@ -23,7 +23,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'cedula',
         'password',
+        'role',  // Agregar role aquí
     ];
 
     /**

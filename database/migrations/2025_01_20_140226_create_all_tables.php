@@ -13,94 +13,166 @@ class CreateAllTables extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('direccion');
-            $table->timestamps();
         });
 
-        // Tabla especialidades
         Schema::create('especialidades', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->timestamps();
         });
 
-        // Tabla doctores
         Schema::create('doctores', function (Blueprint $table) {
             $table->string('cedula')->primary();
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('telefono');
-            $table->string('email')->unique();
-            $table->timestamps();
+            $table->string('email');
         });
 
-        // Tabla doctor_especialidad
         Schema::create('doctor_especialidad', function (Blueprint $table) {
             $table->string('doctor_id');
+            $table->foreign('doctor_id')->references('cedula')->on('doctores')->cascadeOnDelete();
             $table->unsignedBigInteger('especialidad_id');
-
-            $table->foreign('doctor_id')->references('cedula')->on('doctores')->onDelete('cascade');
-            $table->foreign('especialidad_id')->references('id')->on('especialidades')->onDelete('cascade');
-
+            $table->foreign('especialidad_id')->references('id')->on('especialidades')->cascadeOnDelete();
             $table->primary(['doctor_id', 'especialidad_id']);
         });
 
-        // Tabla tipo_citas
-        Schema::create('tipo_citas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->timestamps();
-        });
-
-        // Tabla estado_citas
-        Schema::create('estado_citas', function (Blueprint $table) {
-            $table->id();
-            $table->string('estado');
-            $table->timestamps();
-        });
-
-        // Tabla pacientes
         Schema::create('pacientes', function (Blueprint $table) {
             $table->string('cedula')->primary();
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('telefono');
             $table->date('fecha_nacimiento');
-            $table->timestamps();
         });
 
-        // Tabla citas
+        Schema::create('tipo_citas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+        });
+
+        Schema::create('estado_citas', function (Blueprint $table) {
+            $table->id();
+            $table->string('estado');
+        });
+
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
             $table->string('paciente_id');
+            $table->foreign('paciente_id')->references('cedula')->on('pacientes')->cascadeOnDelete();
             $table->date('fecha');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->text('descripcion')->nullable();
+            $table->text('descripcion');
             $table->string('doctor_id');
+            $table->foreign('doctor_id')->references('cedula')->on('doctores')->cascadeOnDelete();
             $table->unsignedBigInteger('tipo_cita_id');
+            $table->foreign('tipo_cita_id')->references('id')->on('tipo_citas')->cascadeOnDelete();
             $table->unsignedBigInteger('consultorio_id');
+            $table->foreign('consultorio_id')->references('id')->on('consultorios')->cascadeOnDelete();
             $table->unsignedBigInteger('estado_citas_id');
-
-            $table->foreign('paciente_id')->references('cedula')->on('pacientes')->onDelete('cascade');
-            $table->foreign('doctor_id')->references('cedula')->on('doctores')->onDelete('cascade');
-            $table->foreign('tipo_cita_id')->references('id')->on('tipo_citas')->onDelete('cascade');
-            $table->foreign('consultorio_id')->references('id')->on('consultorios')->onDelete('cascade');
-            $table->foreign('estado_citas_id')->references('id')->on('estado_citas')->onDelete('cascade');
-
-            $table->timestamps();
+            $table->foreign('estado_citas_id')->references('id')->on('estado_citas')->cascadeOnDelete();
         });
 
+        Schema::create('historias_clinicas', function (Blueprint $table) {
+            $table->id();
+            $table->string('paciente_id');
+            $table->foreign('paciente_id')->references('cedula')->on('pacientes')->cascadeOnDelete();
+            $table->date('fecha_creacion');
+            $table->text('motivo_consulta');
+            $table->text('diagnostico');
+            $table->text('tratamiento_planificado');
+            $table->text('tratamiento_realizado');
+        });
 
+        Schema::create('condiciones', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre')->unique();
+        });
 
-        // Continuar con las demás tablas siguiendo el mismo patrón
+        Schema::create('antecedentes_familiares', function (Blueprint $table) {
+            $table->id();
+            $table->string('paciente_id');
+            $table->foreign('paciente_id')->references('cedula')->on('pacientes')->cascadeOnDelete();
+            $table->string('familiar');
+            $table->unsignedBigInteger('condicion_id');
+            $table->foreign('condicion_id')->references('id')->on('condiciones')->cascadeOnDelete();
+            $table->text('descripcion');
+        });
+
+        Schema::create('antecedentes_personales', function (Blueprint $table) {
+            $table->id();
+            $table->string('paciente_id');
+            $table->foreign('paciente_id')->references('cedula')->on('pacientes')->cascadeOnDelete();
+            $table->unsignedBigInteger('condicion_id');
+            $table->foreign('condicion_id')->references('id')->on('condiciones')->cascadeOnDelete();
+            $table->text('descripcion');
+        });
+
+        Schema::create('signos_vitales', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('historia_clinica_id');
+            $table->foreign('historia_clinica_id')->references('id')->on('historias_clinicas')->cascadeOnDelete();
+            $table->string('presion_arterial');
+            $table->integer('frecuencia_cardiaca');
+            $table->decimal('temperatura', 5, 2);
+            $table->integer('frecuencia_respiratoria');
+            $table->integer('saturacion_oxigeno');
+            $table->dateTime('fecha_registro');
+        });
+
+        Schema::create('evaluaciones_sistema_estomatognatico', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('historia_clinica_id');
+            $table->foreign('historia_clinica_id')->references('id')->on('historias_clinicas')->cascadeOnDelete();
+            $table->dateTime('fecha_evaluacion');
+            $table->string('masticacion');
+            $table->string('deglucion');
+            $table->string('fonacion');
+            $table->text('tejidos_blandos');
+            $table->text('articulaciones');
+            $table->text('otros_hallazgos');
+        });
+
+        Schema::create('odontogramas', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('historia_clinica_id');
+            $table->foreign('historia_clinica_id')->references('id')->on('historias_clinicas')->cascadeOnDelete();
+            $table->dateTime('fecha_creacion');
+            $table->text('observaciones');
+        });
+
+        Schema::create('dientes', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('odontograma_id');
+            $table->foreign('odontograma_id')->references('id')->on('odontogramas')->cascadeOnDelete();
+            $table->integer('numero');
+            $table->string('tipo');
+            $table->string('posicion');
+        });
+
+        Schema::create('superficies_dentales', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('diente_id');
+            $table->foreign('diente_id')->references('id')->on('dientes')->cascadeOnDelete();
+            $table->string('superficie');
+            $table->string('estado');
+            $table->text('observaciones');
+        });
     }
 
     public function down()
     {
-        // Borrar tablas en orden inverso para evitar problemas de dependencias
+        Schema::dropIfExists('superficies_dentales');
+        Schema::dropIfExists('dientes');
+        Schema::dropIfExists('odontogramas');
+        Schema::dropIfExists('evaluaciones_sistema_estomatognatico');
+        Schema::dropIfExists('signos_vitales');
+        Schema::dropIfExists('antecedentes_personales');
+        Schema::dropIfExists('antecedentes_familiares');
+        Schema::dropIfExists('condiciones');
+        Schema::dropIfExists('historias_clinicas');
+        Schema::dropIfExists('citas');
         Schema::dropIfExists('estado_citas');
         Schema::dropIfExists('tipo_citas');
-        Schema::dropIfExists('citas');
         Schema::dropIfExists('pacientes');
         Schema::dropIfExists('doctor_especialidad');
         Schema::dropIfExists('doctores');
