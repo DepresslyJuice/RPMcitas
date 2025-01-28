@@ -24,20 +24,23 @@
     <!-- Filtros -->
     <div class="d-flex flex-wrap align-items-center mb-6"
         style="background-color: #cff5ff; padding: 10px; border-radius: 10px;
-    border-color: #17B1DC;">
+border-color: #17B1DC;">
         <h6>Filtrar por:</h6>
-        <div class="col-md-3 col-sm-6 mb-3">
-            <!-- Filtro de Doctor -->
-            <h6>Doctor:</h6>
-            <select wire:model="doctorId" class="form-select"
-                style="border-radius: 8px; border: 1px solid #17B1DC; padding: 8px; background-color: #f9fcff;">
-                <option value="">Todos los doctores</option>
-                @foreach ($doctores as $doctor)
-                    <option value="{{ $doctor->nombres }} {{ $doctor->apellidos }}">{{ $doctor->nombres }}
-                        {{ $doctor->apellidos }}</option>
-                @endforeach
-            </select>
-        </div>
+
+        @if (!auth()->user()->hasRole('Dentista'))
+            <div class="col-md-3 col-sm-6 mb-3">
+                <!-- Filtro de Doctor -->
+                <h6>Doctor:</h6>
+                <select wire:model="doctorId" class="form-select"
+                    style="border-radius: 8px; border: 1px solid #17B1DC; padding: 8px; background-color: #f9fcff;">
+                    <option value="">Todos los doctores</option>
+                    @foreach ($doctores as $doctor)
+                        <option value="{{ $doctor->nombres }} {{ $doctor->apellidos }}">{{ $doctor->nombres }}
+                            {{ $doctor->apellidos }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
 
         <div class="col-md-3 col-sm-6 mb-3">
             <!-- Filtro de Consultorio -->
@@ -78,6 +81,7 @@
             </button>
         </div>
     </div>
+
 
 
     <!-- Tabla de calendario semanal -->
@@ -134,17 +138,17 @@
             max-height: 70vh;
             overflow-y: auto;
         }
-        
+
         .table {
             margin-bottom: 0;
         }
-        
+
         .table thead {
             position: sticky;
             top: 0;
             z-index: 10;
         }
-        
+
         /* Wide screen styles */
         @media (min-width: 801px) {
             .table tbody td a {
@@ -152,33 +156,33 @@
                 overflow-y: auto;
                 transition: all 0.3s ease;
             }
-        
+
             .table tbody td a:hover {
                 transform: scale(1.02);
                 box-shadow: 0 5px 15px rgba(23, 177, 220, 0.2);
             }
         }
-        
+
         /* Mobile styles */
         @media (max-width: 800px) {
             .table thead {
                 display: none;
             }
-        
+
             .table tbody,
             .table tr,
             .table td {
                 display: block;
                 width: 100%;
             }
-        
+
             .table td {
                 padding: 15px;
                 border: 1px solid #ddd;
                 position: relative;
                 background-color: #f9fcff !important;
             }
-        
+
             .table td:before {
                 content: attr(data-label);
                 font-weight: bold;
@@ -188,19 +192,19 @@
                 font-size: 1.1em;
             }
         }
-        
+
         /* Scrollbar customization for long screens */
         .table-responsive::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         .table-responsive::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
-        
+
         .table-responsive::-webkit-scrollbar-thumb {
             background: #17B1DC;
             border-radius: 4px;
         }
-        </style>
+    </style>
 </div>

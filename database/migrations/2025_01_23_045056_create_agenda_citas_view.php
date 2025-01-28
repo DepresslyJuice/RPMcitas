@@ -13,7 +13,7 @@ class CreateAgendaCitasView extends Migration
     public function up()
     {
         DB::statement("
-            CREATE OR REPLACE VIEW agenda_citas AS
+CREATE OR REPLACE VIEW agenda_citas AS
             SELECT 
                 c.id AS cita_id,
                 c.fecha,
@@ -21,7 +21,9 @@ class CreateAgendaCitasView extends Migration
                 c.hora_fin AS hora_final,
                 c.descripcion,
                 CONCAT(p.nombres, ' ', p.apellidos) AS paciente,
+                p.cedula AS paciente_cedula,  -- Número de cédula del paciente
                 CONCAT(d.nombres, ' ', d.apellidos) AS doctor,
+                d.cedula AS doctor_cedula,  -- Número de cédula del doctor
                 e.nombre AS especialidad,
                 co.nombre AS consultorio,
                 tc.nombre AS tipo_cita,
@@ -43,7 +45,8 @@ class CreateAgendaCitasView extends Migration
             LEFT JOIN 
                 estado_citas ec ON c.estado_citas_id = ec.id
             ORDER BY 
-                c.fecha, c.hora_inicio
+                c.fecha, c.hora_inicio;
+
         ");
     }
 
