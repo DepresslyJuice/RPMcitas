@@ -1,21 +1,26 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Doctor extends Model
+class Especialidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'especialidades';
+    protected $table = 'especialidades'; 
 
-    protected $fillable = [
-        'nombre',
-    ];
-
-    public function citasMedicas()
+    /**
+     * Relación muchos a muchos con Doctores.
+     */
+    public function doctores()
     {
-        return $this->hasMany(CitaMedica::class);
+        return $this->belongsToMany(
+            Doctor::class,
+            'doctor_especialidad', 
+            'especialidad_id', 
+            'doctor_id'
+        );
     }
 }
