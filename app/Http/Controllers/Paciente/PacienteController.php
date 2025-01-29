@@ -14,7 +14,7 @@ class PacienteController extends Controller
         return view('pacientes.index', compact('pacientes'));
     }
     /**
-     * Mostrar el formulario para crear un nuevo doctor.
+     * Mostrar el formulario para crear un nuevo paciente.
      */
     public function create()
     {
@@ -44,7 +44,7 @@ class PacienteController extends Controller
     }
 
     /**
-     * Mostrar los detalles de un doctor específico.
+     * Mostrar los detalles de un paciente específico.
      */
     public function show($id)
     {
@@ -53,7 +53,7 @@ class PacienteController extends Controller
     }
 
     /**
-     * Mostrar el formulario para editar un doctor existente.
+     * Mostrar el formulario para editar un paciente existente.
      */
     public function edit($id)
     {
@@ -75,7 +75,7 @@ class PacienteController extends Controller
         ]);
 
         $paciente = Paciente::findOrFail($id);
-        $paciente->update($request->only(['nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
+        $paciente->update($request->all());
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente.');
     }
