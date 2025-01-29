@@ -19,7 +19,14 @@ Route::resource('citas', CitaMedicaController::class);
 Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
 
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
+<<<<<<< HEAD
+=======
 
+Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
+Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
+Route::resource('doctores', DoctorController::class)->names('doctores');
+Route::resource('pacientes', PacienteController::class)->names('pacientes');
+>>>>>>> parent of 024611d (Merge branch 'main' into Crud-Pacientes)
 
 
 
