@@ -5,7 +5,7 @@
 <div class="container">
     <h1 class="mb-4">Editar Paciente</h1>
 
-    <form action="{{ route('doctores.update', $paciente->cedula) }}" method="POST">
+    <form action="{{ route('pacientes.update', $paciente->cedula) }}" method="POST">
         @csrf
         @method('PUT')
 

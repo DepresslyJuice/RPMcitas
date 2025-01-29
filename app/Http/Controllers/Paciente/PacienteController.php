@@ -75,7 +75,7 @@ class PacienteController extends Controller
         ]);
 
         $paciente = Paciente::findOrFail($id);
-        $paciente->update($request->all());
+        $paciente->update($request->only(['cedula','nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente.');
     }
