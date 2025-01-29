@@ -9,7 +9,6 @@
 @stop
 
 @section('content')
-    @livewire('pacientes.lista-pacientes')
 
 @stop
 
