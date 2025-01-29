@@ -10,13 +10,15 @@ class Paciente extends Model
     use HasFactory;
 
     protected $table = 'pacientes';
-
+    // public $timestamps = false;
+    protected $primaryKey = 'cedula';
+    protected $keyType = 'string';
     protected $fillable = [
         'cedula',
-        'nombre',
-        'apellido',
-        'email',
+        'nombres',
+        'apellidos',
         'telefono',
+        'fecha_nacimiento',   
     ];
 
     public function citasMedicas()
