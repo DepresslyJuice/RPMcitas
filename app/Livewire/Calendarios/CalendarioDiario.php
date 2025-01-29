@@ -19,13 +19,19 @@ class CalendarioDiario extends Component
 
     public function mount()
     {
-        $this->fecha = Carbon::now()->format('Y-m-d'); // Establecer la fecha actual por defecto
-        $this->citasDelDia(); // Cargar las citas para el día actual
+        $this->fecha = Carbon::now()->format('Y-m-d'); // Fecha actual por defecto
+
+        // Si el usuario es un dentista, asignar su cédula como filtro
+        if (auth()->user()->hasRole('Dentista')) {
+            $this->doctorId = auth()->user()->cedula;
+        }
+
+        $this->citasDelDia(); // Cargar citas después de asignar filtros
     }
 
     public function actualizarFecha()
     {
-        // Actualizar las citas según la fecha seleccionada
+        // Llamar a citasDelDia para aplicar cambios
         $this->citasDelDia();
     }
 
@@ -34,27 +40,24 @@ class CalendarioDiario extends Component
         // Obtener las citas del día
         $query = AgendaCita::whereDate('fecha', $this->fecha);
 
-        // Aplicar filtros usando los nombres de las columnas
-        if ($this->consultorioId) {
-            $query->where('consultorio', $this->consultorioId);
+        // Aplicar filtros usando los nombres correctos de las columnas
+        if (!empty($this->consultorioId)) {
+            $query->where('consultorio', strval($this->consultorioId));
         }
 
-        if ($this->tipoCitaId) {
-            $query->where('tipo_cita', $this->tipoCitaId);
+        if (!empty($this->tipoCitaId)) {
+            $query->where('tipo_cita', strval($this->tipoCitaId));
         }
 
-        if ($this->doctorId) {
-            $query->where('doctor', $this->doctorId);
+        if (auth()->user()->hasRole('Dentista')) {
+            $cedulaDoctorLogueado = auth()->user()->cedula;
+            $query->where('doctor_cedula', $cedulaDoctorLogueado); 
+        } elseif (!empty($this->doctorId)) {
+            $query->where('doctor_cedula', strval($this->doctorId));
         }
 
         // Ordenar y obtener los resultados
-        $citas = $query->orderBy('hora_inicio')->get();
-
-        // Depuración: Mostrar la consulta generada
-        // dd($query->toSql(), $query->getBindings());
-
-        // Convertir la colección en un array
-        $this->citas = $citas->toArray();
+        $this->citas = $query->orderBy('hora_inicio')->get()->toArray();
     }
 
     public function render()
