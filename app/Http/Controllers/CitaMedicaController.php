@@ -17,7 +17,15 @@ class CitaMedicaController extends Controller
      */
     public function index()
     {
-        $citas = CitaMedica::with('paciente', 'doctor', 'consultorio', 'tipoCita', 'estadoCita')->paginate(10);
+        $citasQuery = CitaMedica::with('paciente', 'doctor', 'consultorio', 'tipoCita', 'estadoCita');
+
+        // Si el usuario es un dentista, filtrar solo sus citas
+        if (auth()->user()->hasRole('Dentista')) {
+            $citasQuery->where('doctor_id', auth()->user()->cedula);
+        }
+
+        $citas = $citasQuery->paginate(10);
+
         return view('citas.index', compact('citas'));
     }
 
