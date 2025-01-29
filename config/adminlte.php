@@ -378,13 +378,19 @@ return [
             'can' => 'admin.users.index',
 
         ],
+        [
+            'text' => 'Especialidades',
+            'icon' => 'fas fa-stethoscope fa-fw',
+            'route' => 'especialidades.index',
+            'can' => 'admin.especialidades.index'
+        ],
         
         
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'icon' => 'fas fa-fw fa-user',
-            'route' => 'cuentas.perfil.index',
+            'route' => 'perfil.index',
         ],
         [
             'text' => 'Cambiar Contraseña',
