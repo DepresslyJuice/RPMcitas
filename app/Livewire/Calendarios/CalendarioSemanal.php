@@ -8,7 +8,6 @@ use App\Models\AgendaCita;
 use App\Models\Doctor;
 use App\Models\Consultorio;
 use App\Models\TipoCita;
-use App\Models\User;
 
 class CalendarioSemanal extends Component
 {
@@ -24,14 +23,14 @@ class CalendarioSemanal extends Component
     public function mount()
     {
         $this->fecha = Carbon::now()->format('Y-m-d');
-        $this->actualizarSemana();
-
-        // Si el usuario es un dentista, aplicar automáticamente el filtro por doctor
+        
+        // Si el usuario es un dentista, aplicar automáticamente el filtro por cédula
         if (auth()->user()->hasRole('Dentista')) {
-            $this->doctorId = auth()->user()->cedula; // Asumiendo que la cédula del doctor es única
+            $this->doctorId = auth()->user()->cedula;
         }
-    }
 
+        $this->actualizarSemana();
+    }
 
     public function aplicarFiltros()
     {
@@ -45,36 +44,29 @@ class CalendarioSemanal extends Component
 
         $citasQuery = AgendaCita::whereBetween('fecha', [$this->inicioSemana, $this->finSemana]);
 
-        // Convertir a entero para comparación precisa
-        if ($this->consultorioId) {
+        // Aplicar filtros correctamente
+        if (!empty($this->consultorioId)) {
             $citasQuery->where('consultorio', strval($this->consultorioId));
         }
 
-        if ($this->tipoCitaId) {
+        if (!empty($this->tipoCitaId)) {
             $citasQuery->where('tipo_cita', strval($this->tipoCitaId));
         }
 
-        // Verificar si el usuario es un odontólogo
         if (auth()->user()->hasRole('Dentista')) {
-            // Comparar la cédula del doctor logueado con la cédula del doctor en la vista
-            $cedulaDoctorLogueado = auth()->user()->cedula;
-            $citasQuery->where('doctor_cedula', $cedulaDoctorLogueado); // Suponiendo que 'doctor_cedula' es el campo en la vista
+            // Filtrar únicamente por la cédula del usuario logueado
+            $citasQuery->where('doctor_cedula', auth()->user()->cedula);
+        } elseif (!empty($this->doctorId)) {
+            // Si el usuario no es dentista, aplicar filtro normal
+            $citasQuery->where('doctor_cedula', strval($this->doctorId));
         }
 
-        // Si se proporciona un doctor específico, filtrar por él
-        if ($this->doctorId) {
-            $citasQuery->where('doctor', strval($this->doctorId));
-        }
-
-
-        //dump($this->consultorioId, $this->tipoCitaId, $this->doctorId, auth()->user()->role);
+        // Obtener citas y agruparlas por día
         $citas = $citasQuery->orderBy('fecha')
             ->orderBy('hora_inicio')
             ->get();
 
-        $this->citasPorDia = $citas->groupBy(function ($cita) {
-            return Carbon::parse($cita->fecha)->format('l');
-        })->toArray();
+        $this->citasPorDia = $citas->groupBy(fn($cita) => Carbon::parse($cita->fecha)->format('l'))->toArray();
     }
 
     public function cambiarSemana($direccion)
