@@ -34,7 +34,8 @@
 
         <div class="mb-3">
             <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{ old('fecha_nacimiento') }}">
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" 
+                value="{{ $paciente->fecha_nacimiento }}" required>
             @error('fecha_nacimiento')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

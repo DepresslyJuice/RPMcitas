@@ -12,6 +12,7 @@ class Paciente extends Model
     protected $table = 'pacientes';
     // public $timestamps = false;
     protected $primaryKey = 'cedula';
+    protected $keyType = 'string';
     protected $fillable = [
         'cedula',
         'nombres',
