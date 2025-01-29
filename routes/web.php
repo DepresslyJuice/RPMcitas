@@ -11,6 +11,7 @@ use App\Http\Controllers\Perfil\PerfilController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\Paciente\PacienteController;
 
 
 
@@ -23,6 +24,7 @@ Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.
 Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
 Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
 Route::resource('doctores', DoctorController::class)->names('doctores');
+Route::resource('pacientes', PacienteController::class)->names('pacientes');
 
 
 

@@ -5,7 +5,7 @@
 <div class="container">
     <h1 class="mb-4">Listado de Pacientes</h1>
 
-    <a href="{{ route('doctores.create') }}" class="btn btn-primary mb-3">Añadir Paciente</a>
+    <a href="{{ route('pacientes.create') }}" class="btn btn-primary mb-3">Añadir Paciente</a>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
