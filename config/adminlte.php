@@ -378,36 +378,23 @@ return [
             'can' => 'admin.users.index',
 
         ],
+        [
+            'text' => 'Especialidades',
+            'icon' => 'fas fa-stethoscope fa-fw',
+            'route' => 'especialidades.index',
+            'can' => 'admin.especialidades.index'
+        ],
         
         
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'icon' => 'fas fa-fw fa-user',
-            'route' => 'cuentas.perfil.index',
-        ],
-        [
-            'text' => 'Cambiar Contraseña',
-            'route' => 'cuentas.password.index',
-            'icon' => 'fas fa-fw fa-lock',
+            'route' => 'perfil.index',
         ],
 
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+        
+
     ],
 
     /*
