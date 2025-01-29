@@ -335,9 +335,25 @@ return [
         ],
         [
             'text' => 'Pacientes',
-            'icon' => 'fas fa-users fa-fw',
+            'icon' => 'fas fa-user-injured fa-fw',
             'route' => 'pacientes.index'  // Asegúrate de que esta es la clase correcta
 
+        ],
+        [
+            'text' => 'Doctores',
+            'icon' => 'fas fa-user-md fa-fw',
+
+            'route' => 'doctores.index',
+            'can' => 'admin.doctores.index',
+
+        ],
+
+        
+        [
+            'text'=> 'consultorios',
+            'icon' => 'fas fa-stethoscope fa-fw',
+            'route' => 'consultorios.index',
+            'can' => 'admin.consultorios.index'
         ],
 
         [
@@ -347,15 +363,22 @@ return [
 
             'can' => 'admin.users.index'
         ],
+        
+        [
+            'text'=>'Citas',
+            'icon' => 'fas fa-calendar-alt fa-fw',
+            'route' => 'citas.index',
+        ],
 
         [
             'text' => 'Roles',
-            'icon' => 'fas fa-users fa-fw',
+            'icon' => 'fas fa-user-shield fa-fw',
             'route' => 'admin.roles.index',  // Asegúrate de que esta es la clase correcta
 
             'can' => 'admin.users.index',
 
         ],
+        
         
         ['header' => 'account_settings'],
         [

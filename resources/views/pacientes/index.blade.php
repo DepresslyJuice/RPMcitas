@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-
+    
 
 @stop
 
