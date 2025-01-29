@@ -392,28 +392,9 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'route' => 'perfil.index',
         ],
-        [
-            'text' => 'Cambiar Contraseña',
-            'route' => 'cuentas.password.index',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
 
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+        
+
     ],
 
     /*
