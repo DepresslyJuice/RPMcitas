@@ -21,10 +21,12 @@ Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('cit
 
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
 
+
 Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
 Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
 Route::resource('doctores', DoctorController::class)->names('doctores');
 Route::resource('pacientes', PacienteController::class)->names('pacientes');
+
 
 
 
