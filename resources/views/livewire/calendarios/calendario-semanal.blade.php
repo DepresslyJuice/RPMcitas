@@ -35,8 +35,8 @@ border-color: #17B1DC;">
                     style="border-radius: 8px; border: 1px solid #17B1DC; padding: 8px; background-color: #f9fcff;">
                     <option value="">Todos los doctores</option>
                     @foreach ($doctores as $doctor)
-                        <option value="{{ $doctor->nombres }} {{ $doctor->apellidos }}">{{ $doctor->nombres }}
-                            {{ $doctor->apellidos }}</option>
+                        <option value="{{ $doctor->cedula }}">{{ $doctor->nombres }}  {{ $doctor->apellidos }} -
+                            {{ $doctor->cedula }}</option>
                     @endforeach
                 </select>
             </div>
