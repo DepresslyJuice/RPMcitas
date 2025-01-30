@@ -47,9 +47,15 @@ class CitaMedicaController extends Controller
      */
     public function store(Request $request)
     {
+        // Si el usuario es un dentista, asignarle automáticamente su cédula
+        if (auth()->user()->hasRole('Dentista')) {
+            $request->merge(['doctor_id' => auth()->user()->cedula]);
+        }
+
+        // Validación de datos
         $request->validate([
             'paciente_id' => 'required|exists:pacientes,cedula',
-            'doctor_id' => 'required|exists:doctores,cedula',
+            'doctor_id' => auth()->user()->hasRole('Dentista') ? 'nullable' : 'required|exists:doctores,cedula',
             'consultorio_id' => 'required|exists:consultorios,id',
             'tipo_cita_id' => 'required|exists:tipo_citas,id',
             'estado_citas_id' => 'required|exists:estado_citas,id',
@@ -63,19 +69,19 @@ class CitaMedicaController extends Controller
         $existeCita = CitaMedica::where('doctor_id', $request->doctor_id)
             ->where('fecha', $request->fecha)
             ->where(function ($query) use ($request) {
-                $query->whereBetween('hora_inicio', [$request->hora_inicio, $request->hora_fin])
-                    ->orWhereBetween('hora_fin', [$request->hora_inicio, $request->hora_fin])
-                    ->orWhere(function ($query) use ($request) {
-                        $query->where('hora_inicio', '<=', $request->hora_inicio)
-                            ->where('hora_fin', '>=', $request->hora_fin);
-                    });
+                $query->where(function ($q) use ($request) {
+                    $q->where('hora_inicio', '<', $request->hora_fin)
+                        ->where('hora_fin', '>', $request->hora_inicio);
+                });
             })->exists();
 
         if ($existeCita) {
             return back()->withErrors(['error' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
         }
 
+        // Crear la cita
         CitaMedica::create($request->all());
+
         return redirect()->route('citas.index')->with('success', 'Cita médica creada exitosamente.');
     }
 
