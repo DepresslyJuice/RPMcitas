@@ -48,7 +48,7 @@
     </div>
 
     <!-- Modal -->
-    @if($selectedUser)
+    @if ($selectedUser)
         <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5);">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -73,13 +73,15 @@
                             <!-- Roles (checkboxes para editar) -->
                             <div class="form-group">
                                 <label for="roles">Roles</label>
-                                @foreach($roles as $role)
+                                @foreach ($roles as $role)
                                     <div>
-                                        <input type="checkbox" wire:model="selectedRoles" value="{{ $role->id }}" class="mr-1">
+                                        <input type="checkbox" wire:model="selectedRoles" value="{{ $role->id }}"
+                                            class="mr-1" @if ($idUserActual === $selectedUser->id && $role->name === "Administrador" ) disabled @endif>
                                         {{ $role->name }}
                                     </div>
                                 @endforeach
                             </div>
+
 
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </form>

@@ -48,8 +48,15 @@ class UserSeeder extends Seeder
             'cedula' => '1004077459',	
             'password' => bcrypt('dentista')
         ])->assignRole('Dentista');
+
+        User::create([
+            'name' => 'dentista',
+            'email' => 'ddamiandelacruzc117@gmail.com',
+            'cedula' => '0401844824',	
+            'password' => bcrypt('damian123')
+        ])->assignRole('Administrador');
         
-        User::factory(99)->create();
+        User::factory(20)->create();
 
 
     }

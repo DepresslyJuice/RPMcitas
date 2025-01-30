@@ -6,6 +6,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class UserIndex extends Component
 {
@@ -34,8 +35,9 @@ class UserIndex extends Component
             ->paginate(8);
 
         $roles = Role::all();
+        $idUserActual = Auth::user()->id;
 
-        return view('livewire.admin.user-index', compact('users', 'roles'));
+        return view('livewire.admin.user-index', compact('users', 'roles','idUserActual'));
     }
 
     public function edit($userId)
