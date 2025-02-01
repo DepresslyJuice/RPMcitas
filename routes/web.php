@@ -21,7 +21,8 @@ Route::resource('citas', CitaMedicaController::class);
 Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
 
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
-Route::get('/auditoria', [AuditoriaController::class, 'index'])->name('auditoria.index');                                                                     
+
+
 
 Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
 Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
