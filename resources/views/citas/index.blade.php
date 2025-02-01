@@ -48,11 +48,10 @@
         </table>
         {{ $citas->links() }}
 
-        <style>
-            svg.w-5 {
-                width: 20px !important;
-                height: 20px !important;
-            }
-        </style>
+
     </div>
 @endsection
+
+@vite('resources/css/cita_medica.css')
+
+
