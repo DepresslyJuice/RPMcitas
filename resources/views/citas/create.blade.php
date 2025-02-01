@@ -15,22 +15,25 @@
                 <select class="form-select" id="paciente_id" name="paciente_id" required>
                     <option value="" selected disabled>Selecciona un paciente</option>
                     @foreach ($pacientes as $paciente)
-                        <option value="{{ $paciente->cedula }}">{{ $paciente->nombres }} {{ $paciente->apellidos }} - {{$paciente->cedula}}</option>
+                        <option value="{{ $paciente->cedula }}">{{ $paciente->nombres }} {{ $paciente->apellidos }} -
+                            {{ $paciente->cedula }}</option>
                     @endforeach
                 </select>
             </div>
 
             <!-- Doctor -->
-            <div class="mb-3">
-                <label for="doctor_id" class="form-label">Doctor</label>
-                <select class="form-select" id="doctor_id" name="doctor_id" required>
-                    <option value="" selected disabled>Selecciona un doctor</option>
-                    @foreach ($doctores as $doctor)
-                        <option value="{{ $doctor->cedula }}">{{ $doctor->nombres }} {{ $doctor->apellidos }} - {{$paciente->cedula}}</option>
-                    @endforeach
-                </select>
-            </div>
-
+            @if (!auth()->user()->hasRole('Dentista'))
+                <div class="mb-3">
+                    <label for="doctor_id" class="form-label">Doctor</label>
+                    <select class="form-select" id="doctor_id" name="doctor_id" required>
+                        <option value="" selected disabled>Selecciona un doctor</option>
+                        @foreach ($doctores as $doctor)
+                            <option value="{{ $doctor->cedula }}">{{ $doctor->nombres }} {{ $doctor->apellidos }} -
+                                {{ $doctor->cedula }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
             <!-- Fecha -->
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
