@@ -136,9 +136,9 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => true,
+    'usermenu_image' => false,
     'usermenu_desc' => true,
-    'usermenu_profile_url' => true,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -300,27 +300,16 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
+
 
         [
             'type' => 'fullscreen-widget',
 
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
         ],
 
         // Sidebar items:
 
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+
 
 
         [
