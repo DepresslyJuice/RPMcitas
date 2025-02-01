@@ -9,6 +9,7 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -47,8 +48,9 @@
             </tbody>
         </table>
         {{ $citas->links() }}
-
-
+        
+        </div>
+        @vite('resources/css/CRUDS/index.css')
     </div>
 @endsection
 

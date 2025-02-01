@@ -1,0 +1,150 @@
+/* Base styles */
+.table-responsive {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Wide screen styles */
+@media (min-width: 801px) {
+    .table tbody td a {
+        max-height: 200px;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
+
+    .table tbody td a:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(23, 177, 220, 0.2);
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 800px) {
+    .table thead {
+        display: none;
+    }
+
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table td {
+        padding: 15px;
+        border: 1px solid #ddd;
+        position: relative;
+        background-color: #f9fcff !important;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        color: #17B1DC;
+        font-size: 1.1em;
+    }
+}
+
+/* Scrollbar customization for long screens */
+.table-responsive::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #17B1DC;
+    border-radius: 4px;
+}
+
+/* Colores para cada tipo de cita */
+.cita-consulta-general {
+    background-color: #9fcefd !important; /* Azul */
+    border-color: #eafaff !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+.cita-tratamiento {
+    background-color: #fbdeff !important; /* Morado */
+    border-color: #fadcff !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+.cita-control {
+    background-color: #d4ffd4 !important; /* Verde */
+    border-color: #ecffec !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+/* Estilos para los filtros */
+.filtros-container {
+    background-color: #cff5ff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #17B1DC;
+    margin-bottom: 20px;
+}
+
+.filtros-container h6 {
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.filtros-container .form-select {
+    border-radius: 8px;
+    border: 1px solid #17B1DC;
+    padding: 8px;
+    background-color: #f9fcff;
+}
+
+.filtros-container .btn {
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: bold;
+}
+
+.filtros-container .btn-primary {
+    background-color: #17B1DC;
+    border: none;
+    color: white;
+}
+
+.filtros-container .btn-secondary {
+    background-color: #8F5499;
+    border: none;
+    color: white;
+}
+
+/* Estilos para los controles de semana */
+.controles-semana {
+    margin-bottom: 20px;
+}
+
+.controles-semana .btn {
+    background-color: #17B1DC;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.controles-semana h3 {
+    color: #000000;
+    margin: 0;
+}
+
+
