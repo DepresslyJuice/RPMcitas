@@ -40,5 +40,6 @@
             @endforeach
         </tbody>
     </table>
+    @vite('resources/css/CRUDS/index.css')
 </div>
 @endsection

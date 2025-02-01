@@ -130,5 +130,6 @@
             </form>
         </div>
     </div>
+    @vite('resources/css/CRUDS/create.css')
 </div>
 @endsection

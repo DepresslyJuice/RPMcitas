@@ -1,0 +1,63 @@
+/* Estilos generales */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #f9fcff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #17B1DC;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los formularios */
+.form-label {
+    font-weight: bold;
+    color: #000000;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #17B1DC;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #8F5499;
+    box-shadow: 0 0 5px rgba(143, 84, 153, 0.5);
+}
+
+/* Botón de enviar */
+.btn-primary {
+    background-color: #17B1DC;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0f91b5;
+    box-shadow: 0 4px 10px rgba(23, 177, 220, 0.2);
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+
+    .form-control, .form-select {
+        font-size: 14px;
+    }
+}
