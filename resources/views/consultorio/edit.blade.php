@@ -31,5 +31,6 @@
         <button type="submit" class="btn btn-success">Actualizar</button>
         <a href="{{ route('consultorios.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    @vite('resources/css/CRUDS/create.css')
 </div>
 @endsection

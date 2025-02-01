@@ -96,5 +96,6 @@
                 <button type="submit" class="btn btn-primary">Crear Cita</button>
             </div>
         </form>
+        @vite('resources/css/CRUDS/create.css')
     </div>
 @endsection

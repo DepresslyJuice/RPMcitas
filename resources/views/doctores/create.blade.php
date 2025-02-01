@@ -73,5 +73,6 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="{{ route('doctores.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    @vite('resources/css/CRUDS/create.css')
 </div>
 @endsection
