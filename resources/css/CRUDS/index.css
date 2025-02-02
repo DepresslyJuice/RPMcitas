@@ -10,9 +10,13 @@ body {
     color: #333;
 }
 
+
+
 .container-fluid {
     padding: 20px;
 }
+
+
 
 h2 {
     color: #17B1DC;
@@ -46,6 +50,14 @@ label {
     box-shadow: 0 0 5px rgba(23, 177, 220, 0.5);
 }
 
+
+.form-search{
+    border-color: #17B1DC;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 12px;
+}
 .btn-primary {
     background-color: #17B1DC;
     border: none;
@@ -59,6 +71,7 @@ label {
 .btn-primary:hover {
     background-color: #1496c7;
 }
+
 
 /* Estilos para la tabla */
 .table-responsive {
@@ -172,4 +185,6 @@ label {
     .table td {
         font-size: 0.9rem;
     }
+
+    
 }

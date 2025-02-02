@@ -6,7 +6,11 @@
     <h1 class="mb-4">Listado de Pacientes</h1>
 
     <a href="{{ route('pacientes.create') }}" class="btn btn-primary mb-3">Añadir Paciente</a>
-
+    <h4>Buscar Paciente</h4>
+    <form method="GET" action="{{ route('pacientes.index') }}">
+        <input type="text" name="search" placeholder="Buscar paciente" class="form-search" value="{{ request('search') }}">
+        <button type="submit" class="btn-secondary">Buscar</button>
+    </form>
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

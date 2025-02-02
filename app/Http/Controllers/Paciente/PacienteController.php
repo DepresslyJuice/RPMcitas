@@ -8,9 +8,19 @@ use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pacientes = Paciente::all();
+        $query = Paciente::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('nombres', 'LIKE', "%{$search}%")
+                ->orWhere('apellidos', 'LIKE', "%{$search}%")
+                ->orWhere('cedula', 'LIKE', "%{$search}%");
+        }
+
+        $pacientes = $query->get();
+
         return view('pacientes.index', compact('pacientes'));
     }
     /**
@@ -39,8 +49,7 @@ class PacienteController extends Controller
         // Crear el paciente
         $paciente = Paciente::create($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
 
-        return redirect()->route('pacientes.index',compact('paciente'))->with('success', 'Paciente creado correctamente.');
-
+        return redirect()->route('pacientes.index', compact('paciente'))->with('success', 'Paciente creado correctamente.');
     }
 
     /**
@@ -57,7 +66,7 @@ class PacienteController extends Controller
      */
     public function edit($id)
     {
-        $paciente= Paciente::findOrFail($id);
+        $paciente = Paciente::findOrFail($id);
         return view('pacientes.edit', compact('paciente'));
     }
 
@@ -75,7 +84,7 @@ class PacienteController extends Controller
         ]);
 
         $paciente = Paciente::findOrFail($id);
-        $paciente->update($request->only(['cedula','nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
+        $paciente->update($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente.');
     }
