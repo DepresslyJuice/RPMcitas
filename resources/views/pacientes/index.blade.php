@@ -14,7 +14,7 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
+    <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -34,6 +34,7 @@
                     <td>{{ $paciente->fecha_nacimiento }}</td>               
                     <td>
                         <a href="{{ route('pacientes.edit', $paciente->cedula) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{{ route('pacientes.historial', $paciente->cedula)}}" class="btn btn-warning btn-sm">Ver Paciente</a>
                         <form action="{{ route('pacientes.destroy', $paciente->cedula) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
@@ -44,6 +45,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
     @vite('resources/css/CRUDS/index.css')
 </div>
 @endsection

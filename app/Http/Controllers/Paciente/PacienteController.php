@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Paciente;
 
 use App\Http\Controllers\Controller;
 use App\Models\Paciente;
+use App\Models\CitaMedica;
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
@@ -23,6 +24,8 @@ class PacienteController extends Controller
 
         return view('pacientes.index', compact('pacientes'));
     }
+
+
     /**
      * Mostrar el formulario para crear un nuevo paciente.
      */
@@ -61,6 +64,11 @@ class PacienteController extends Controller
         return view('pacientes.show', compact('paciente'));
     }
 
+    public function verHistorial($id)
+    {
+        $paciente = Paciente::with('citas')->findOrFail($id);
+        return view('pacientes.historial', compact('paciente'));
+    }
     /**
      * Mostrar el formulario para editar un paciente existente.
      */

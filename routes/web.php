@@ -22,6 +22,7 @@ Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('cit
 
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
 
+Route::get('/pacientes/{id}/historial', [PacienteController::class, 'verHistorial'])->name('pacientes.historial');
 
 
 Route::resource('consultorios', ConsultorioController::class)->names('consultorios');

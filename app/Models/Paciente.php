@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Carbon\Carbon;
 
 class Paciente extends Model
 {
@@ -19,7 +20,7 @@ class Paciente extends Model
         'nombres',
         'apellidos',
         'telefono',
-        'fecha_nacimiento',   
+        'fecha_nacimiento',
     ];
 
     public function citasMedicas()
@@ -39,6 +40,15 @@ class Paciente extends Model
             ->dontSubmitEmptyLogs(); // Evita logs vacíos
     }
 
+    public function citas()
+    {
+        return $this->hasMany(CitaMedica::class, 'paciente_id');
+    }
+
+    public function getEdadAttribute()
+    {
+        return Carbon::parse($this->fecha_nacimiento)->age;
+    }
     /**
      * Mensaje personalizado en los logs de auditoría.
      */
