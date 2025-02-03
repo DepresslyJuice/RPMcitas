@@ -37,8 +37,9 @@ class CalendarioDiario extends Component
 
     public function citasDelDia()
     {
-        // Obtener las citas del día
-        $query = AgendaCita::whereDate('fecha', $this->fecha);
+        // Obtener las citas del día excluyendo las canceladas (estado_cita != 'Cancelada')
+        $query = AgendaCita::whereDate('fecha', $this->fecha)
+            ->where('estado_cita', '!=', 'Cancelada');
 
         // Aplicar filtros usando los nombres correctos de las columnas
         if (!empty($this->consultorioId)) {
@@ -51,7 +52,7 @@ class CalendarioDiario extends Component
 
         if (auth()->user()->hasRole('Dentista')) {
             $cedulaDoctorLogueado = auth()->user()->cedula;
-            $query->where('doctor_cedula', $cedulaDoctorLogueado); 
+            $query->where('doctor_cedula', $cedulaDoctorLogueado);
         } elseif (!empty($this->doctorId)) {
             $query->where('doctor_cedula', strval($this->doctorId));
         }

@@ -36,7 +36,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Estás seguro de eliminar esta citas?')">Eliminar</button>
+                                    onclick="return confirm('¿Estás seguro de eliminar esta citas?')">Cancelar</button>
                             </form>
                         </td>
                     </tr>

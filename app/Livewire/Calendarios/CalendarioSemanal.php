@@ -23,7 +23,7 @@ class CalendarioSemanal extends Component
     public function mount()
     {
         $this->fecha = Carbon::now()->format('Y-m-d');
-        
+
         // Si el usuario es un dentista, aplicar automáticamente el filtro por cédula
         if (auth()->user()->hasRole('Dentista')) {
             $this->doctorId = auth()->user()->cedula;
@@ -42,7 +42,8 @@ class CalendarioSemanal extends Component
         $this->inicioSemana = Carbon::now()->startOfWeek()->addWeeks($this->semana);
         $this->finSemana = Carbon::now()->endOfWeek()->addWeeks($this->semana);
 
-        $citasQuery = AgendaCita::whereBetween('fecha', [$this->inicioSemana, $this->finSemana]);
+        $citasQuery = AgendaCita::whereBetween('fecha', [$this->inicioSemana, $this->finSemana])
+            ->where('estado_cita', '!=', 'Cancelada');
 
         // Aplicar filtros correctamente
         if (!empty($this->consultorioId)) {

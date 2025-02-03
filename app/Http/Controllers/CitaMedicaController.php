@@ -24,7 +24,10 @@ class CitaMedicaController extends Controller
             $citasQuery->where('doctor_id', auth()->user()->cedula);
         }
 
-        $citas = $citasQuery->paginate(10);
+        $citas = CitaMedica::whereHas('estadoCita', function ($query) {
+            $query->where('estado', '!=', 'Cancelada');
+        })->paginate(10);
+
 
         return view('citas.index', compact('citas'));
     }
@@ -104,17 +107,13 @@ class CitaMedicaController extends Controller
             'descripcion' => 'nullable|string|max:255',
         ]);
 
-
-
-        // Verificar conflicto de horario para el doctor
+        // Verificar conflicto de horario para el doctor, excluyendo citas con estado 'cancelada' (ID 3)
         $existeCita = CitaMedica::where('doctor_id', $request->doctor_id)
             ->where('fecha', $request->fecha)
-            ->where(function ($query) use ($request) {
-                $query->where(function ($q) use ($request) {
-                    $q->where('hora_inicio', '<', $request->hora_fin)
-                        ->where('hora_fin', '>', $request->hora_inicio);
-                });
-            })->exists();
+            ->where('hora_inicio', '<', $request->hora_fin)
+            ->where('hora_fin', '>', $request->hora_inicio)
+            ->where('estado_citas_id', '!=', 3) // Estado distinto de 'cancelada'
+            ->exists();
 
         if ($existeCita) {
             return back()->withErrors(['error' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
@@ -201,7 +200,7 @@ class CitaMedicaController extends Controller
      */
     public function destroy(CitaMedica $cita)
     {
-        $cita->delete();
-        return redirect()->route('citas.index')->with('success', 'Cita médica eliminada exitosamente.');
+        $cita->update(['estado_citas_id' => EstadoCitas::where('estado', 'Cancelada')->first()->id]);
+        return redirect()->route('citas.index')->with('success', 'Cita médica cancelada exitosamente.');
     }
 }
