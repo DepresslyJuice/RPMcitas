@@ -42,6 +42,45 @@ class CitaMedicaController extends Controller
         return view('citas.create', compact('pacientes', 'doctores', 'consultorios', 'tiposCita', 'estadosCita'));
     }
 
+    public function buscarPacientes(Request $request)
+    {
+        $search = $request->search;
+        $pacientes = Paciente::where('nombres', 'ILIKE', "%$search%")
+            ->orWhere('apellidos', 'ILIKE', "%$search%")
+            ->orWhere('cedula', 'ILIKE', "%$search%")
+            ->limit(10)
+            ->get();
+
+        return response()->json($pacientes->map(fn($p) => ['id' => $p->cedula, 'text' => "$p->nombres $p->apellidos - $p->cedula"]));
+    }
+
+    public function buscarDoctores(Request $request)
+    {
+        $search = $request->search;
+        $doctores = Doctor::where('nombres', 'ILIKE', "%$search%")
+            ->orWhere('apellidos', 'ILIKE', "%$search%")
+            ->orWhere('cedula', 'ILIKE', "%$search%")
+            ->limit(10)
+            ->get();
+
+        return response()->json($doctores->map(fn($d) => ['id' => $d->cedula, 'text' => "$d->nombres $d->apellidos - $d->cedula"]));
+    }
+
+    public function buscarTiposCita(Request $request)
+    {
+        $search = $request->search;
+        $tipos = TipoCita::where('nombre', 'ILIKE', "%$search%")->limit(10)->get();
+        return response()->json($tipos->map(fn($t) => ['id' => $t->id, 'text' => $t->nombre]));
+    }
+
+    public function buscarConsultorios(Request $request)
+    {
+        $search = $request->search;
+        $consultorios = Consultorio::where('nombre', 'ILIKE', "%$search%")->limit(10)->get();
+        return response()->json($consultorios->map(fn($c) => ['id' => $c->id, 'text' => $c->nombre]));
+    }
+
+
     /**
      * Almacenar una nueva cita en la base de datos.
      */
@@ -64,6 +103,8 @@ class CitaMedicaController extends Controller
             'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
             'descripcion' => 'nullable|string|max:255',
         ]);
+
+
 
         // Verificar conflicto de horario para el doctor
         $existeCita = CitaMedica::where('doctor_id', $request->doctor_id)

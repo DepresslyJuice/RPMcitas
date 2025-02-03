@@ -14,6 +14,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+label{
+    padding-right: 10px;
+}
+
 /* Estilos para los formularios */
 .form-label {
     font-weight: bold;
@@ -31,6 +35,52 @@ h1 {
     border-color: #8F5499;
     box-shadow: 0 0 5px rgba(143, 84, 153, 0.5);
 }
+
+
+.form-label {
+    font-weight: bold;
+    color: #000000;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #17B1DC;
+    padding: 8px 12px; /* Reducimos el padding superior e inferior */
+    background-color: #ffffff;
+    height: 45px; /* Ajustamos la altura para centrar el texto */
+    line-height: normal; /* Asegura que el texto se mantenga alineado */
+    display: flex;
+    align-items: center; /* Centra el texto verticalmente */
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #8F5499;
+    box-shadow: 0 0 5px rgba(143, 84, 153, 0.5);
+}
+
+/* Asegurar que Select2 tenga la misma apariencia */
+.select2-container .select2-selection--single {
+    height: 45px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    border: 1px solid #17B1DC !important;
+    background-color: #ffffff !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: normal !important;
+    padding-left: 0 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 45px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+
 
 /* Botón de enviar */
 .btn-primary {
