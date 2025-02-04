@@ -56,9 +56,12 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        $doctor = Doctor::with('especialidades')->findOrFail($id); // Cargar especialidades relacionadas
+        // Cargar el doctor con sus especialidades
+        $doctor = Doctor::with('especialidades')->findOrFail($id);
+
         return view('doctores.show', compact('doctor'));
     }
+
 
     /**
      * Mostrar el formulario para editar un doctor existente.
@@ -105,5 +108,3 @@ class DoctorController extends Controller
         return redirect()->route('doctores.index')->with('success', 'Doctor eliminado correctamente.');
     }
 }
-
-

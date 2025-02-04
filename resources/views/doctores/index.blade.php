@@ -1,4 +1,3 @@
-@extends('layouts.app')
 @extends('adminlte::page')
 
 @section('content')
@@ -33,12 +32,8 @@
                         {{ $doctor->especialidades->pluck('nombre')->join(', ') }}
                     </td>
                     <td>
+                        <a href="{{ route('doctores.show', $doctor->cedula) }}" class="btn btn-info btn-sm">Ver</a>
                         <a href="{{ route('doctores.edit', $doctor->cedula) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('doctores.destroy', $doctor->cedula) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este doctor?')">Eliminar</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach
