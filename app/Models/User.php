@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-    use HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +23,7 @@ class User extends Authenticatable
         'email',
         'cedula',
         'password',
-        'role',  // Agregar role aquí
+        'role', // Agregar role aquí
     ];
 
     /**
@@ -50,6 +48,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Métodos requeridos por JWTSubject
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey(); // Devuelve la clave primaria del usuario
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return []; // Puedes agregar claims personalizados si los necesitas
+    }
+
+    /**
+     * Métodos para AdminLTE
+     */
     public function adminlte_image()
     {
         return "";
