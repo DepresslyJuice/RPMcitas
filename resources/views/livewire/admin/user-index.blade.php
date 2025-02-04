@@ -70,6 +70,11 @@
                                 <p class="form-control-plaintext">{{ $selectedUser->email }}</p>
                             </div>
 
+                            <div class="form-group">
+                                <label for="email">Cedula</label>
+                                
+                            </div>
+
                             <!-- Roles (checkboxes para editar) -->
                             <div class="form-group">
                                 <label for="roles">Roles</label>
