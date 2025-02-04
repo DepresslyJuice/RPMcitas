@@ -21,6 +21,7 @@
                 <th>Cédula</th>
                 <th>Nombre Completo</th>
                 <th>Teléfono</th>
+                <th>Email</th>
                 <th>Fecha de Nacimiento</th>
                 <th>Acciones</th>
             </tr>
@@ -31,6 +32,7 @@
                     <td>{{ $paciente->cedula }}</td>
                     <td>{{ $paciente->nombres }} {{ $paciente->apellidos }}</td>
                     <td>{{ $paciente->telefono }}</td>
+                    <td>{{ $paciente->email}}</td>
                     <td>{{ $paciente->fecha_nacimiento }}</td>               
                     <td>
                         <a href="{{ route('pacientes.edit', $paciente->cedula) }}" class="btn btn-info btn-sm">Editar</a>
