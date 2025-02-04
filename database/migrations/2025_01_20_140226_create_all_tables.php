@@ -12,7 +12,8 @@ class CreateAllTables extends Migration
         Schema::create('consultorios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('direccion');
+            $table->string('direccion')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -45,6 +46,7 @@ class CreateAllTables extends Migration
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('telefono');
+            $table->string('email');
             $table->date('fecha_nacimiento');
             $table->timestamps();
         });
@@ -68,7 +70,7 @@ class CreateAllTables extends Migration
             $table->date('fecha');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->string('doctor_id');
             $table->foreign('doctor_id')->references('cedula')->on('doctores')->cascadeOnDelete();
             $table->unsignedBigInteger('tipo_cita_id');
@@ -79,6 +81,7 @@ class CreateAllTables extends Migration
             $table->foreign('estado_citas_id')->references('id')->on('estado_citas')->cascadeOnDelete();
             $table->timestamps();
         });
+
 
         Schema::create('historias_clinicas', function (Blueprint $table) {
             $table->id();

@@ -15,6 +15,7 @@ class PacientesSeeder extends Seeder
                 'nombres' => 'Carlos',
                 'apellidos' => 'Ramírez',
                 'telefono' => '0991234567',
+                'email' => 'carlos@example.com',	
                 'fecha_nacimiento' => '1990-01-15',
             ],
             [
@@ -22,6 +23,7 @@ class PacientesSeeder extends Seeder
                 'nombres' => 'Ana',
                 'apellidos' => 'López',
                 'telefono' => '0986543210',
+                'email' => 'ana@example.com',
                 'fecha_nacimiento' => '1985-05-20',
             ],
             [
@@ -29,6 +31,7 @@ class PacientesSeeder extends Seeder
                 'nombres' => 'Melany',
                 'apellidos' => 'Farinango',
                 'telefono' => '0986543211',
+                'email' => 'melany@example.com',
                 'fecha_nacimiento' => '1999-05-20',
             ],
 
@@ -37,6 +40,7 @@ class PacientesSeeder extends Seeder
                 'nombres' => 'Marcelo',
                 'apellidos' => 'Ponce',
                 'telefono' => '0986543212',
+                'email' => 'marcelo@example.com',
                 'fecha_nacimiento' => '2000-01-20',
             ],
 
@@ -45,6 +49,7 @@ class PacientesSeeder extends Seeder
                 'nombres' => 'Agapo',
                 'apellidos' => '',
                 'telefono' => '0986543210',
+                'email' => 'agapo@example.com',
                 'fecha_nacimiento' => '1985-05-20',
             ],
         ]);

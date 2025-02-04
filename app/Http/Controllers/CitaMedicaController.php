@@ -24,13 +24,23 @@ class CitaMedicaController extends Controller
             $citasQuery->where('doctor_id', auth()->user()->cedula);
         }
 
-        $citas = CitaMedica::whereHas('estadoCita', function ($query) {
+        // Filtrar solo las citas cuyo estado no sea 'Cancelada'
+        $citasQuery->whereHas('estadoCita', function ($query) {
             $query->where('estado', '!=', 'Cancelada');
-        })->paginate(10);
+        });
 
+        // Cargar los consultorios eliminados lógicamente usando `withTrashed()`
+        $citasQuery->with(['consultorio' => function ($query) {
+            $query->withTrashed(); // Incluir los consultorios eliminados lógicamente
+        }]);
+
+        // Obtener las citas con paginación
+        $citas = $citasQuery->paginate(10);
 
         return view('citas.index', compact('citas'));
     }
+
+
 
     /**
      * Mostrar el formulario para crear una nueva cita.
