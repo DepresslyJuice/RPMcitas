@@ -10,6 +10,7 @@ class ConsultoriosSeeder extends Seeder
     public function run()
     {
         DB::table('consultorios')->insert([
+            ['nombre' => 'No asignado', 'direccion' => null],
             ['nombre' => 'Consultorio 1', 'direccion' => 'Calle Principal 123'],
             ['nombre' => 'Consultorio 2', 'direccion' => 'Avenida Secundaria 456'],
             ['nombre' => 'Consultorio 3', 'direccion' => 'Plaza Central 789'],

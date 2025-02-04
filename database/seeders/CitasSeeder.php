@@ -19,7 +19,7 @@ class CitasSeeder extends Seeder
                 'descripcion' => 'Consulta de revisión general',
                 'doctor_id' => '1004077457',
                 'tipo_cita_id' => 1,
-                'consultorio_id' => 1,
+                'consultorio_id' => 2,
                 'estado_citas_id' => 1,
             ],
             // Cita con la doctora María García
@@ -55,7 +55,7 @@ class CitasSeeder extends Seeder
                 'descripcion' => 'Control postoperatorio',
                 'doctor_id' => '1004077457',
                 'tipo_cita_id' => 2,
-                'consultorio_id' => 1,
+                'consultorio_id' => 4,
                 'estado_citas_id' => 1,
             ],
             // Otro paciente con María García

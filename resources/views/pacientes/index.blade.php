@@ -33,13 +33,8 @@
                     <td>{{ $paciente->telefono }}</td>
                     <td>{{ $paciente->fecha_nacimiento }}</td>               
                     <td>
-                        <a href="{{ route('pacientes.edit', $paciente->cedula) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{{ route('pacientes.edit', $paciente->cedula) }}" class="btn btn-info btn-sm">Editar</a>
                         <a href="{{ route('pacientes.historial', $paciente->cedula)}}" class="btn btn-warning btn-sm">Ver Paciente</a>
-                        <form action="{{ route('pacientes.destroy', $paciente->cedula) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este doctor?')">Eliminar</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach
