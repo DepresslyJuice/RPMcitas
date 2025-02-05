@@ -25,6 +25,14 @@ class PacienteController extends Controller
         return view('pacientes.index', compact('pacientes'));
     }
 
+    public function indexAPI(Request $request)
+    {
+        // Obtener todos los pacientes
+        $pacientes = Paciente::all();
+
+        // Retornar los datos en formato JSON
+        return response()->json($pacientes);
+    }
 
     /**
      * Mostrar el formulario para crear un nuevo paciente.
