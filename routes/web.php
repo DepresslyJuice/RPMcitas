@@ -29,7 +29,7 @@ Route::resource('consultorios', ConsultorioController::class)->names('consultori
 Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
 Route::resource('doctores', DoctorController::class)->names('doctores');
 Route::resource('pacientes', PacienteController::class)->names('pacientes');
-
+Route::get('/reporte-citas', [CitaMedicaController::class, 'generarReporte'])->name('reporte-citas');
 
 
 

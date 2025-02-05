@@ -6,6 +6,8 @@
     <div class="container">
         <h1 class="text-center">Citas Médicas</h1>
         <a href="{{ route('citas.create') }}" class="btn btn-primary mb-3">Nueva Cita</a>
+        <a href="{{ route('reporte-citas') }}" class="btn btn-primary mb-3">Generar Reporte</a>
+
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
