@@ -9,6 +9,10 @@ use App\Models\Consultorio;
 use App\Models\TipoCita;
 use App\Models\EstadoCitas;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
+
 
 class CitaMedicaController extends Controller
 {
@@ -212,5 +216,20 @@ class CitaMedicaController extends Controller
     {
         $cita->update(['estado_citas_id' => EstadoCitas::where('estado', 'Cancelada')->first()->id]);
         return redirect()->route('citas.index')->with('success', 'Cita médica cancelada exitosamente.');
+    }
+
+    public function generarReporte()
+    {
+        $citas = CitaMedica::with(['paciente', 'doctor', 'consultorio', 'tipoCita', 'estadoCita'])->get();
+
+        // Verifica si hay datos en la consulta
+        if ($citas->isEmpty()) {
+            return back()->withErrors(['error' => 'No hay citas disponibles para generar el reporte.']);
+        }
+
+
+        $pdf = Pdf::loadView('reportes.citas', compact('citas'));
+
+        return $pdf->download('reporte_citas.pdf');
     }
 }

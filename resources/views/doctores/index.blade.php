@@ -5,6 +5,7 @@
     <h1 class="mb-4">Lista de Doctores</h1>
 
     <a href="{{ route('doctores.create') }}" class="btn btn-primary mb-3">Crear Nuevo Doctor</a>
+    <a href="{{ route('reporte-doctores') }}" class="btn btn-primary mb-3">Generar Reporte</a>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Paciente;
 use App\Models\CitaMedica;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PacienteController extends Controller
 {
@@ -61,7 +62,7 @@ class PacienteController extends Controller
 
         // Crear el paciente
         $paciente = Paciente::create($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'email', 'fecha_nacimiento']));
-        
+
         return redirect()->route('pacientes.index', compact('paciente'))->with('success', 'Paciente creado correctamente.');
     }
 
@@ -117,5 +118,16 @@ class PacienteController extends Controller
         $paciente->delete();
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente eliminado correctamente.');
+    }
+
+    public function generarReporte()
+    {
+        $pacientes = Paciente::all();  // Obtiene todos los pacientes
+
+        // Cargar la vista y pasar los datos
+        $pdf = Pdf::loadView('reportes.pacientes', compact('pacientes'));
+
+        // Descargar el archivo PDF
+        return $pdf->download('reporte_pacientes.pdf');
     }
 }
