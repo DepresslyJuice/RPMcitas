@@ -1,3 +1,22 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
 <h1>Reporte de citas</h1>
 @if($citas->isEmpty())
     <p>No hay citas disponibles.</p>

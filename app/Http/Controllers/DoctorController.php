@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\Especialidad;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorController extends Controller
 {
@@ -106,5 +107,16 @@ class DoctorController extends Controller
         $doctor->delete();
 
         return redirect()->route('doctores.index')->with('success', 'Doctor eliminado correctamente.');
+    }
+
+    public function generarReporte()
+    {
+        $doctores = Doctor::all();
+
+        // Cargar la vista y pasar los datos
+        $pdf = Pdf::loadView('reportes.doctores', compact('doctores'));
+
+        // Descargar el archivo PDF
+        return $pdf->download('reporte_doctores.pdf');
     }
 }
