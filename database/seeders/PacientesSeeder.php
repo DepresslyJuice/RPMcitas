@@ -46,10 +46,10 @@ class PacientesSeeder extends Seeder
 
             [
                 'cedula' => '5566778899',
-                'nombres' => 'Agapo',
+                'nombres' => 'Luis Fierro',
                 'apellidos' => '',
                 'telefono' => '0986543210',
-                'email' => 'agapo@example.com',
+                'email' => 'mf@example.com',
                 'fecha_nacimiento' => '1985-05-20',
             ],
         ]);
