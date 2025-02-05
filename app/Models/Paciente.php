@@ -20,6 +20,7 @@ class Paciente extends Model
         'nombres',
         'apellidos',
         'telefono',
+        'email',
         'fecha_nacimiento',
     ];
 

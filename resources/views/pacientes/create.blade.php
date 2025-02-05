@@ -39,6 +39,14 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Email</label>
+            <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}">
+            @error('email')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-3">
             <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>

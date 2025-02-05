@@ -46,12 +46,14 @@ class PacienteController extends Controller
             'nombres' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string|max:15',
+            'email' => 'nullable|email|max:255',
             'fecha_nacimiento' => 'required|date',
         ]);
 
-        // Crear el paciente
-        $paciente = Paciente::create($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
 
+        // Crear el paciente
+        $paciente = Paciente::create($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'email', 'fecha_nacimiento']));
+        
         return redirect()->route('pacientes.index', compact('paciente'))->with('success', 'Paciente creado correctamente.');
     }
 
@@ -88,11 +90,12 @@ class PacienteController extends Controller
             'nombres' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string|max:15',
+            'email' => 'nullable|email|max:255',
             'fecha_nacimiento' => 'required|date',
         ]);
 
         $paciente = Paciente::findOrFail($id);
-        $paciente->update($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'fecha_nacimiento']));
+        $paciente->update($request->only(['cedula', 'nombres', 'apellidos', 'telefono', 'email', 'fecha_nacimiento']));
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente.');
     }
