@@ -103,22 +103,30 @@ class CitaMedicaController extends Controller
      */
     public function store(Request $request)
     {
-        // Si el usuario es un dentista, asignarle automáticamente su cédula
-        if (auth()->user()->hasRole('Dentista')) {
-            $request->merge(['doctor_id' => auth()->user()->cedula]);
-        }
-
-        // Validación de datos
+        // Validación de datos con mensajes personalizados
         $request->validate([
             'paciente_id' => 'required|exists:pacientes,cedula',
             'doctor_id' => auth()->user()->hasRole('Dentista') ? 'nullable' : 'required|exists:doctores,cedula',
             'consultorio_id' => 'required|exists:consultorios,id',
             'tipo_cita_id' => 'required|exists:tipo_citas,id',
             'estado_citas_id' => 'required|exists:estado_citas,id',
-            'fecha' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
+            'fecha' => 'required|date|after_or_equal:today', // La fecha debe ser hoy o después
+            'hora_inicio' => 'required|date_format:H:i', // La hora debe ser en el futuro
+            'hora_fin' => 'required|date_format:H:i|after:hora_inicio', // La hora de fin debe ser después de la de inicio
             'descripcion' => 'nullable|string|max:255',
+        ], [
+            'paciente_id.required' => 'El paciente es obligatorio.',
+            'paciente_id.exists' => 'El paciente no existe en el sistema.',
+            'doctor_id.required' => 'El doctor es obligatorio.',
+            'doctor_id.exists' => 'El doctor no existe en el sistema.',
+            'consultorio_id.required' => 'El consultorio es obligatorio.',
+            'consultorio_id.exists' => 'El consultorio seleccionado no es válido.',
+            'fecha.required' => 'La fecha de la cita es obligatoria.',
+            'hora_inicio.required' => 'La hora de inicio es obligatoria.',
+            'hora_inicio.date_format' => 'La hora de inicio debe estar en formato HH:MM.',
+            'hora_fin.required' => 'La hora de finalización es obligatoria.',
+            'hora_fin.date_format' => 'La hora de finalización debe estar en formato HH:MM.',
+            'hora_fin.after' => 'La hora de finalización debe ser después de la hora de inicio.',
         ]);
 
         // Verificar conflicto de horario para el doctor, excluyendo citas con estado 'cancelada' (ID 3)
@@ -130,7 +138,7 @@ class CitaMedicaController extends Controller
             ->exists();
 
         if ($existeCita) {
-            return back()->withErrors(['error' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
+            return redirect()->back()->withErrors(['horario' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
         }
 
         // Crear la cita
@@ -138,6 +146,7 @@ class CitaMedicaController extends Controller
 
         return redirect()->route('citas.index')->with('success', 'Cita médica creada exitosamente.');
     }
+
 
     /**
      * Mostrar los detalles de una cita.

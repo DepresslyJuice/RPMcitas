@@ -8,6 +8,15 @@
 
         <form action="{{ route('citas.store') }}" method="POST">
             @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!-- Paciente -->
             <div class="mb-3">
@@ -95,7 +104,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             function initSelect2(selector, url, placeholder) {
                 $(selector).select2({
                     placeholder: placeholder,
@@ -103,20 +112,24 @@
                         url: url,
                         dataType: 'json',
                         delay: 250,
-                        data: function (params) {
-                            return { search: params.term };
+                        data: function(params) {
+                            return {
+                                search: params.term
+                            };
                         },
-                        processResults: function (data) {
-                            return { results: data };
+                        processResults: function(data) {
+                            return {
+                                results: data
+                            };
                         }
                     }
                 });
             }
 
-            initSelect2('#paciente_id', '{{ route("api.pacientes") }}', 'Buscar paciente...');
-            initSelect2('#doctor_id', '{{ route("api.doctores") }}', 'Buscar doctor...');
-            initSelect2('#tipo_cita_id', '{{ route("api.tipos_cita") }}', 'Buscar tipo de cita...');
-            initSelect2('#consultorio_id', '{{ route("api.consultorios") }}', 'Buscar consultorio...');
+            initSelect2('#paciente_id', '{{ route('api.pacientes') }}', 'Buscar paciente...');
+            initSelect2('#doctor_id', '{{ route('api.doctores') }}', 'Buscar doctor...');
+            initSelect2('#tipo_cita_id', '{{ route('api.tipos_cita') }}', 'Buscar tipo de cita...');
+            initSelect2('#consultorio_id', '{{ route('api.consultorios') }}', 'Buscar consultorio...');
         });
     </script>
 @endsection
