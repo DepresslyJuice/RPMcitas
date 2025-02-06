@@ -106,7 +106,7 @@ class CitaMedicaController extends Controller
         // Validación de datos con mensajes personalizados
         $request->validate([
             'paciente_id' => 'required|exists:pacientes,cedula',
-            'doctor_id' => auth()->user()->hasRole('Dentista') ? 'nullable' : 'required|exists:doctores,cedula',
+            'doctor_id' =>'required|exists:doctores,cedula',
             'consultorio_id' => 'required|exists:consultorios,id',
             'tipo_cita_id' => 'required|exists:tipo_citas,id',
             'estado_citas_id' => 'required|exists:estado_citas,id',
@@ -186,9 +186,9 @@ class CitaMedicaController extends Controller
             'consultorio_id' => 'required|exists:consultorios,id',
             'tipo_cita_id' => 'required|exists:tipo_citas,id',
             'estado_citas_id' => 'required|exists:estado_citas,id',
-            'fecha' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
+            'fecha' => 'required|date|after_or_equal:today', // La fecha debe ser hoy o después
+            'hora_inicio' => 'required|date_format:H:i', // La hora debe ser en el futuro
+            'hora_fin' => 'required|date_format:H:i|after:hora_inicio', // La hora de fin debe ser después de la de inicio
             'descripcion' => 'nullable|string|max:255',
         ]);
 
@@ -206,11 +206,9 @@ class CitaMedicaController extends Controller
             ->where('id', '!=', $cita->id) // Excluir la cita actual
             ->exists();
 
-        if ($existeCita) {
-            return back()
-                ->withErrors(['horario' => 'El doctor ya tiene una cita en el horario seleccionado.'])
-                ->withInput();
-        }
+            if ($existeCita) {
+                return redirect()->back()->withErrors(['horario' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
+            }
 
         // Actualizar la cita
         $cita->update($request->all());
