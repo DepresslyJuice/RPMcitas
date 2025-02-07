@@ -72,6 +72,15 @@ label {
     background-color: #1496c7;
 }
 
+/* En tu archivo CSS */
+.btn-action {
+    margin-right: 8px; /* Espacio entre botones */
+}
+
+.btn-action:last-child {
+    margin-right: 0; /* Elimina el margen del último botón */
+}
+
 
 /* Estilos para la tabla */
 .table-responsive {
