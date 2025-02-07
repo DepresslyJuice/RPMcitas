@@ -17,11 +17,8 @@ use App\Http\Controllers\AuditoriaController;
 
 
 Route::resource('citas', CitaMedicaController::class);
-
 Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
-
 Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
-
 Route::get('/pacientes/{id}/historial', [PacienteController::class, 'verHistorial'])->name('pacientes.historial');
 
 
@@ -34,7 +31,8 @@ Route::get('/reporte-pacientes', [PacienteController::class, 'generarReporte'])-
 Route::get('/reporte-doctores', [DoctorController::class, 'generarReporte'])->name('reporte-doctores');
 
 
-
+Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])
+    ->name('citas.finalizar');
 
 
 

@@ -106,7 +106,7 @@ class CitaMedicaController extends Controller
         // Validación de datos con mensajes personalizados
         $request->validate([
             'paciente_id' => 'required|exists:pacientes,cedula',
-            'doctor_id' =>'required|exists:doctores,cedula',
+            'doctor_id' => 'required|exists:doctores,cedula',
             'consultorio_id' => 'required|exists:consultorios,id',
             'tipo_cita_id' => 'required|exists:tipo_citas,id',
             'estado_citas_id' => 'required|exists:estado_citas,id',
@@ -206,9 +206,9 @@ class CitaMedicaController extends Controller
             ->where('id', '!=', $cita->id) // Excluir la cita actual
             ->exists();
 
-            if ($existeCita) {
-                return redirect()->back()->withErrors(['horario' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
-            }
+        if ($existeCita) {
+            return redirect()->back()->withErrors(['horario' => 'El doctor ya tiene una cita en el horario seleccionado.'])->withInput();
+        }
 
         // Actualizar la cita
         $cita->update($request->all());
@@ -238,5 +238,20 @@ class CitaMedicaController extends Controller
         $pdf = Pdf::loadView('reportes.citas', compact('citas'));
 
         return $pdf->download('reporte_citas.pdf');
+    }
+
+    public function actualizarEstado(Request $request, CitaMedica $cita)
+    {
+
+        $estadoFinalizada = EstadoCitas::where('estado', 'Finalizada')->first();
+
+        if ($cita->estado_citas_id == $estadoFinalizada->id) {
+            return redirect()->route('citas.index')->with('warning', 'La cita ya está finalizada.');
+        }
+
+        // Actualizar el estado de la cita
+        $cita->update(['estado_citas_id' => $estadoFinalizada->id]);
+
+        return redirect()->route('citas.index')->with('success', 'Cita marcada como Finalizada.');
     }
 }
