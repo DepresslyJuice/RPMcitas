@@ -324,7 +324,7 @@ return [
             'text' => 'Pacientes',
             'icon' => 'fas fa-user-injured fa-fw',
             'route' => 'pacientes.index',  // Asegúrate de que esta es la clase correcta
-            'can' => ['admin.pacientes', 'pacientes']
+            'can' => ['pacientes', 'dentista.pacientes'],
 
 
         ],

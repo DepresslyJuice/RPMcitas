@@ -130,4 +130,6 @@ class PacienteController extends Controller
         // Descargar el archivo PDF
         return $pdf->download('reporte_pacientes.pdf');
     }
+
+    
 }

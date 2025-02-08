@@ -13,6 +13,8 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\AuditoriaController;
 
+use App\Http\Middleware\CheckAnyPermission;
+
 
 
 // Ruta principal de administración
@@ -29,8 +31,10 @@ Route::resource('roles', RolesController::class)->middleware('can:admin.roles.in
 
 //Ruta de pacientes
 Route::resource('pacientes', PacienteController::class)
-    ->middleware(['can:pacientes'])
+    ->middleware(CheckAnyPermission::class . ':pacientes,dentista.pacientes')
     ->names('pacientes');
+
+
 
 //ACCESO A PERFIL
 Route::resource('password', PasswordController::class)->names('cuentas.password');
