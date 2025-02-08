@@ -50,11 +50,11 @@ class UserSeeder extends Seeder
         ])->assignRole('Dentista');
 
         User::create([
-            'name' => 'dentista',
-            'email' => 'ddamiandelacruzc117@gmail.com',
+            'name' => 'cliente',
+            'email' => 'cliente@cliente',
             'cedula' => '0401844824',	
-            'password' => bcrypt('damian123')
-        ])->assignRole('Administrador');
+            'password' => bcrypt('cliente')
+        ])->assignRole('Cliente');
         
         User::factory(20)->create();
 
