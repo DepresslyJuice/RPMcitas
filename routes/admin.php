@@ -28,7 +28,9 @@ Route::resource('roles', RolesController::class)->middleware('can:admin.roles.in
 
 
 //Ruta de pacientes
-Route::resource('pacientes', PacienteController::class)->names('pacientes');
+Route::resource('pacientes', PacienteController::class)
+    ->middleware(['can:pacientes'])
+    ->names('pacientes');
 
 //ACCESO A PERFIL
 Route::resource('password', PasswordController::class)->names('cuentas.password');

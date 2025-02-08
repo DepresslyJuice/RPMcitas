@@ -24,9 +24,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
     Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
     Route::resource('doctores', DoctorController::class)->names('doctores');
-    Route::resource('pacientes', PacienteController::class)->names('pacientes');
+
+    Route::resource('pacientes', PacienteController::class)->middleware('can:pacientes')->names('pacientes');
+
     Route::get('/reporte-citas', [CitaMedicaController::class, 'generarReporte'])->name('reporte-citas');
+
     Route::get('/reporte-pacientes', [PacienteController::class, 'generarReporte'])->name('reporte-pacientes');
+    
     Route::get('/reporte-doctores', [DoctorController::class, 'generarReporte'])->name('reporte-doctores');
 
     Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])

@@ -47,9 +47,7 @@ return [
     |
     */
 
-    'google_fonts' => [
-        'allowed' => true,
-    ],
+ 
 
     /*
     |--------------------------------------------------------------------------
@@ -325,7 +323,9 @@ return [
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-user-injured fa-fw',
-            'route' => 'pacientes.index'  // Asegúrate de que esta es la clase correcta
+            'route' => 'pacientes.index',  // Asegúrate de que esta es la clase correcta
+            'can' => ['admin.pacientes', 'pacientes']
+
 
         ],
         [
@@ -357,6 +357,7 @@ return [
             'text'=>'Citas',
             'icon' => 'fas fa-calendar-alt fa-fw',
             'route' => 'citas.index',
+            'can' => 'admin.citas.index'
         ],
 
         [
