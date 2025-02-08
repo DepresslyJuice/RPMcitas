@@ -5,7 +5,7 @@
 
 
 @section('content_header')
-    <h1>AQUI ADMINISTRO ROLES</h1>
+
 @stop
 
 @section('content')
