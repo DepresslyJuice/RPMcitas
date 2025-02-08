@@ -4,11 +4,7 @@
     $user = auth()->user();
 @endphp
 
-@if($user->can('dentista.pacientes'))
-    <p>El dentista tiene el permiso.</p>
-@else
-    <p>El dentista no tiene el permiso.</p>
-@endif
+
 @section('content')
 <div class="container">
     <h1 class="mb-4">Listado de Pacientes</h1>
