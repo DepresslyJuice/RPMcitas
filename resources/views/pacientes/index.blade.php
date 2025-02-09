@@ -40,7 +40,10 @@
                     <td>{{ $paciente->email}}</td>
                     <td>{{ $paciente->fecha_nacimiento }}</td>               
                     <td>
+                        @if (!auth()->user()->hasRole('Dentista'))
                         <a href="{{ route('pacientes.edit', $paciente->cedula) }}" class="btn btn-info btn-sm">Editar</a>
+                        @endif
+                        
                         <a href="{{ route('pacientes.historial', $paciente->cedula)}}" class="btn btn-warning btn-sm">Ver Paciente</a>
                     </td>
                 </tr>
