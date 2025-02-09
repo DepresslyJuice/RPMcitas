@@ -48,8 +48,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.consultorios.edit'])->syncRoles([$admin]);
         Permission::create(['name' => 'admin.consultorios.destroy'])->syncRoles([$admin]);
 
+        // Permisos para la gestión de pacientes
         Permission::create(['name' => 'pacientes'])->syncRoles([$admin, $secretaria]);
         Permission::create(['name' => 'dentista.pacientes'])->syncRoles([$dentista]);
+
+
+        // Permisos para la gestión de citas médicas
+        Permission::create(['name' => 'citas'])->syncRoles([$admin, $secretaria]);
+        Permission::create(['name' => 'dentista.citas'])->syncRoles([$dentista]);
 
 
         Permission::create(['name' => 'admin.auditoria'])->syncRoles([$admin]);

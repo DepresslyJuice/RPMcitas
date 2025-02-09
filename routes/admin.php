@@ -36,6 +36,7 @@ Route::resource('pacientes', PacienteController::class)
 
 
 
+
 //ACCESO A PERFIL
 Route::resource('password', PasswordController::class)->names('cuentas.password');
 

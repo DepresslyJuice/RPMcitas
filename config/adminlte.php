@@ -357,7 +357,7 @@ return [
             'text'=>'Citas',
             'icon' => 'fas fa-calendar-alt fa-fw',
             'route' => 'citas.index',
-            'can' => 'admin.citas.index'
+            'can' => ['citas', 'dentista.citas']
         ],
 
         [

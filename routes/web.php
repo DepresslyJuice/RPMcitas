@@ -18,24 +18,47 @@ use App\Http\Middleware\CheckAnyPermission;
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth'])->group(function () {
-    
+
     // Rutas de citas médicas
-    Route::resource('citas', CitaMedicaController::class);
+    //solo dentista
+    Route::middleware(['auth', CheckAnyPermission::class . ':dentista.citas'])
+        ->group(function () {
+            Route::get('/citas', [CitaMedicaController::class, 'index'])->name('citas.index');
+            Route::get('/citas/{cita}', [CitaMedicaController::class, 'show'])->name('citas.show');
+            Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
+        });
+
+    //solo admin y secretaria
+    Route::middleware(['auth', CheckAnyPermission::class . ':citas'])
+        ->group(function () {
+            Route::get('/citas', [CitaMedicaController::class, 'index'])->name('citas.index');
+            Route::get('/citas/{cita}', [CitaMedicaController::class, 'show'])->name('citas.show');
+            Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
+            Route::get('/citas/create', [CitaMedicaController::class, 'create'])->name('citas.create');
+            Route::post('/citas', [CitaMedicaController::class, 'store'])->name('citas.store');
+            Route::get('/citas/{cita}/edit', [CitaMedicaController::class, 'edit'])->name('citas.edit');
+            Route::put('/citas/{cita}', [CitaMedicaController::class, 'update'])->name('citas.update');
+            Route::delete('/citas/{cita}', [CitaMedicaController::class, 'destroy'])->name('citas.destroy');
+            Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
+        });
+
+    
     Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
     Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
     Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
-    
+
     // Rutas de pacientes
     Route::get('/pacientes/{id}/historial', [PacienteController::class, 'verHistorial'])->name('pacientes.historial');
+
     Route::resource('pacientes', PacienteController::class)
         ->middleware(CheckAnyPermission::class . ':pacientes,dentista.pacientes')
         ->names('pacientes');
-    
+
     // Rutas de consultorios, especialidades y doctores
     Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
     Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
     Route::resource('doctores', DoctorController::class)->names('doctores');
-    
+
     // Rutas de generación de reportes
     Route::get('/reporte-citas', [CitaMedicaController::class, 'generarReporte'])->name('reporte-citas');
     Route::get('/reporte-pacientes', [PacienteController::class, 'generarReporte'])->name('reporte-pacientes');
@@ -46,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/api/doctores', [CitaMedicaController::class, 'buscarDoctores'])->name('api.doctores');
     Route::get('/api/tipos_cita', [CitaMedicaController::class, 'buscarTiposCita'])->name('api.tipos_cita');
     Route::get('/api/consultorios', [CitaMedicaController::class, 'buscarConsultorios'])->name('api.consultorios');
-    
+
     // Ruta de inicio para usuarios autenticados
     Route::get('/home', [HomeController::class, 'index']);
 });
