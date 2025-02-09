@@ -21,28 +21,25 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas de citas médicas
     //solo dentista
-    Route::middleware(['auth', CheckAnyPermission::class . ':dentista.citas'])
+    // Rutas comunes para ambos permisos (dentista.citas y citas)
+    Route::middleware(['auth', CheckAnyPermission::class . ':dentista.citas,citas'])
         ->group(function () {
             Route::get('/citas', [CitaMedicaController::class, 'index'])->name('citas.index');
             Route::get('/citas/{cita}', [CitaMedicaController::class, 'show'])->name('citas.show');
             Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
         });
 
-    //solo admin y secretaria
+    // Rutas solo para el permiso 'citas' (admin y secretaria)
     Route::middleware(['auth', CheckAnyPermission::class . ':citas'])
         ->group(function () {
-            Route::get('/citas', [CitaMedicaController::class, 'index'])->name('citas.index');
-            Route::get('/citas/{cita}', [CitaMedicaController::class, 'show'])->name('citas.show');
-            Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
             Route::get('/citas/create', [CitaMedicaController::class, 'create'])->name('citas.create');
             Route::post('/citas', [CitaMedicaController::class, 'store'])->name('citas.store');
             Route::get('/citas/{cita}/edit', [CitaMedicaController::class, 'edit'])->name('citas.edit');
             Route::put('/citas/{cita}', [CitaMedicaController::class, 'update'])->name('citas.update');
             Route::delete('/citas/{cita}', [CitaMedicaController::class, 'destroy'])->name('citas.destroy');
-            Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
         });
 
-    
+
     Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
     Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
     Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
