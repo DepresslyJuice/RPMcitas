@@ -327,7 +327,7 @@ return [
             'route' => 'citas.index',
             'can' => ['citas', 'dentista.citas']
         ],
-        
+
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-user-injured fa-fw',
@@ -341,7 +341,7 @@ return [
             'icon' => 'fas fa-user-md fa-fw',
 
             'route' => 'doctores.index',
-            'can' => 'admin.doctores.index',
+            'can' => 'admin.admin',
 
         ],
 
@@ -350,7 +350,7 @@ return [
             'text' => 'consultorios',
             'icon' => 'fas fa-stethoscope fa-fw',
             'route' => 'consultorios.index',
-            'can' => 'admin.consultorios.index'
+            'can' => 'admin.admin'
         ],
 
         [
@@ -358,30 +358,23 @@ return [
             'icon' => 'fas fa-users fa-fw',
             'route' => 'admin.users.index',  // Asegúrate de que esta es la clase correcta
 
-            'can' => 'admin.users.index'
+            'can' => 'admin.admin'
         ],
 
 
 
-        [
-            'text' => 'Roles',
-            'icon' => 'fas fa-user-shield fa-fw',
-            'route' => 'admin.roles.index',  // Asegúrate de que esta es la clase correcta
 
-            'can' => 'admin.users.index',
-
-        ],
         [
             'text' => 'Especialidades',
             'icon' => 'fas fa-stethoscope fa-fw',
             'route' => 'especialidades.index',
-            'can' => 'admin.especialidades.index'
+            'can' => 'admin.admin'
         ],
         [
             'text' => 'Auditoría',
             'icon' => 'fas fa-history fa-fw',
             'route' => 'auditoria.index',
-            'can' => 'admin.auditoria'
+            'can' => 'admin.admin'
         ],
 
 
@@ -391,6 +384,14 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'route' => 'perfil.index',
         ],
+
+        // [
+        //     'text' => 'Roles',
+        //     'icon' => 'fas fa-user-shield fa-fw',
+        //     'route' => 'admin.roles.index',  
+        //     'can' => 'admin.admin',
+
+        // ],
     ],
 
     /*

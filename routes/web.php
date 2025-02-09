@@ -59,18 +59,6 @@ Route::middleware(['auth'])->group(function () {
         });
 
     // Ruta de API (no requiere permisos específicos)
-    Route::get('/api/pacientes', [PacienteController::class, 'indexAPI'])->name('api.pacientes');
-
-    // Rutas de consultorios, especialidades y doctores
-    Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
-    Route::resource('especialidades', EspecialidadController::class)->names('especialidades');
-    Route::resource('doctores', DoctorController::class)->names('doctores');
-
-    // Rutas de generación de reportes
-
-    Route::get('/reporte-doctores', [DoctorController::class, 'generarReporte'])->name('reporte-doctores');
-
-    // Rutas de API
     Route::get('/api/pacientes', [CitaMedicaController::class, 'buscarPacientes'])->name('api.pacientes');
     Route::get('/api/doctores', [CitaMedicaController::class, 'buscarDoctores'])->name('api.doctores');
     Route::get('/api/tipos_cita', [CitaMedicaController::class, 'buscarTiposCita'])->name('api.tipos_cita');

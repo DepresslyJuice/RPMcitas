@@ -23,30 +23,8 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'admin.home'])->syncRoles([$admin, $secretaria, $dentista]);
 
-        Permission::create(['name' => 'admin.users.index'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.users.create'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.users.edit'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.users.destroy'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.admin'])->syncRoles([$admin]);
 
-        Permission::create(['name' => 'admin.roles.index'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.roles.create'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.roles.edit'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.roles.destroy'])->syncRoles([$admin]);
-
-        Permission::create(['name' => 'admin.doctores.index'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.doctores.create'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.doctores.edit'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.doctores.destroy'])->syncRoles([$admin]);
-
-        Permission::create(['name' => 'admin.especialidades.index'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.especialidades.create'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.especialidades.edit'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.especialidades.destroy'])->syncRoles([$admin]);
-
-        Permission::create(['name' => 'admin.consultorios.index'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.consultorios.create'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.consultorios.edit'])->syncRoles([$admin]);
-        Permission::create(['name' => 'admin.consultorios.destroy'])->syncRoles([$admin]);
 
         // Permisos para la gestión de pacientes
         Permission::create(['name' => 'pacientes'])->syncRoles([$admin, $secretaria]);
