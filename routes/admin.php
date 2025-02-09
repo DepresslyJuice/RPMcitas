@@ -30,9 +30,7 @@ Route::resource('roles', RolesController::class)->middleware('can:admin.roles.in
 
 
 //Ruta de pacientes
-Route::resource('pacientes', PacienteController::class)
-    ->middleware(CheckAnyPermission::class . ':pacientes,dentista.pacientes')
-    ->names('pacientes');
+
 
 
 

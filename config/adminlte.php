@@ -47,7 +47,7 @@ return [
     |
     */
 
- 
+
 
     /*
     |--------------------------------------------------------------------------
@@ -320,6 +320,14 @@ return [
             'icon' => 'fas fa-tachometer-alt fa-fw',
             'url' => 'home'
         ],
+
+        [
+            'text' => 'Citas',
+            'icon' => 'fas fa-calendar-alt fa-fw',
+            'route' => 'citas.index',
+            'can' => ['citas', 'dentista.citas']
+        ],
+        
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-user-injured fa-fw',
@@ -337,9 +345,9 @@ return [
 
         ],
 
-        
+
         [
-            'text'=> 'consultorios',
+            'text' => 'consultorios',
             'icon' => 'fas fa-stethoscope fa-fw',
             'route' => 'consultorios.index',
             'can' => 'admin.consultorios.index'
@@ -352,13 +360,8 @@ return [
 
             'can' => 'admin.users.index'
         ],
-        
-        [
-            'text'=>'Citas',
-            'icon' => 'fas fa-calendar-alt fa-fw',
-            'route' => 'citas.index',
-            'can' => ['citas', 'dentista.citas']
-        ],
+
+
 
         [
             'text' => 'Roles',
@@ -380,8 +383,8 @@ return [
             'route' => 'auditoria.index',
             'can' => 'admin.auditoria'
         ],
-        
-        
+
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

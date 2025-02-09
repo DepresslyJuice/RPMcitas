@@ -15,12 +15,12 @@ use App\Http\Controllers\Paciente\PacienteController;
 use App\Http\Controllers\AuditoriaController;
 
 use App\Http\Middleware\CheckAnyPermission;
+use App\Models\Paciente;
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth'])->group(function () {
 
     // Rutas de citas médicas
-    //solo dentista
     // Rutas comunes para ambos permisos (dentista.citas y citas)
     Route::middleware(['auth', CheckAnyPermission::class . ':dentista.citas,citas'])
         ->group(function () {
@@ -40,16 +40,26 @@ Route::middleware(['auth'])->group(function () {
         });
 
 
-    Route::get('/agenda/create', [CitaMedicaController::class, 'create'])->name('citas.create');
-    Route::put('/citas/{id}', [CitaMedicaController::class, 'update'])->name('citas.update');
-    Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
+    Route::middleware([CheckAnyPermission::class . ':pacientes'])
+        ->group(function () {
+            Route::get('/pacientes/create', [PacienteController::class, 'create'])->name('pacientes.create');
+            Route::post('/pacientes', [PacienteController::class, 'store'])->name('pacientes.store');
+            Route::get('/pacientes/{paciente}/edit', [PacienteController::class, 'edit'])->name('pacientes.edit');
+            Route::put('/pacientes/{paciente}', [PacienteController::class, 'update'])->name('pacientes.update');
+            Route::delete('/pacientes/{paciente}', [PacienteController::class, 'destroy'])->name('pacientes.destroy');
+            Route::get('/reporte-pacientes', [PacienteController::class, 'generarReporte'])->name('reporte-pacientes');
+        });
 
-    // Rutas de pacientes
-    Route::get('/pacientes/{id}/historial', [PacienteController::class, 'verHistorial'])->name('pacientes.historial');
+    // Rutas comunes para admin, secretaria y dentista
+    Route::middleware([CheckAnyPermission::class . ':pacientes,dentista.pacientes'])
+        ->group(function () {
+            Route::get('/pacientes', [PacienteController::class, 'index'])->name('pacientes.index');
+            Route::get('/pacientes/{paciente}', [PacienteController::class, 'show'])->name('pacientes.show');
+            Route::get('/pacientes/{id}/historial', [PacienteController::class, 'verHistorial'])->name('pacientes.historial');
+        });
 
-    Route::resource('pacientes', PacienteController::class)
-        ->middleware(CheckAnyPermission::class . ':pacientes,dentista.pacientes')
-        ->names('pacientes');
+    // Ruta de API (no requiere permisos específicos)
+    Route::get('/api/pacientes', [PacienteController::class, 'indexAPI'])->name('api.pacientes');
 
     // Rutas de consultorios, especialidades y doctores
     Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
@@ -57,8 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('doctores', DoctorController::class)->names('doctores');
 
     // Rutas de generación de reportes
-    Route::get('/reporte-citas', [CitaMedicaController::class, 'generarReporte'])->name('reporte-citas');
-    Route::get('/reporte-pacientes', [PacienteController::class, 'generarReporte'])->name('reporte-pacientes');
+
     Route::get('/reporte-doctores', [DoctorController::class, 'generarReporte'])->name('reporte-doctores');
 
     // Rutas de API
