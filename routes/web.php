@@ -15,6 +15,7 @@ use App\Http\Controllers\Paciente\PacienteController;
 use App\Http\Controllers\AuditoriaController;
 
 use App\Http\Middleware\CheckAnyPermission;
+use App\Models\CitaMedica;
 use App\Models\Paciente;
 
 // Rutas protegidas por autenticación
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/citas', [CitaMedicaController::class, 'index'])->name('citas.index');
             Route::get('/citas/{cita}', [CitaMedicaController::class, 'show'])->name('citas.show');
             Route::patch('/citas/{cita}/finalizar', [CitaMedicaController::class, 'actualizarEstado'])->name('citas.finalizar');
+            Route::get('/reporte-citas', [CitaMedicaController::class, 'generarReporte'])->name('reporte-citas');
         });
 
     // Rutas solo para el permiso 'citas' (admin y secretaria)
@@ -58,15 +60,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/pacientes/{id}/historial', [PacienteController::class, 'verHistorial'])->name('pacientes.historial');
         });
 
-    // Ruta de API (no requiere permisos específicos)
-    Route::get('/api/pacientes', [CitaMedicaController::class, 'buscarPacientes'])->name('api.pacientes');
-    Route::get('/api/doctores', [CitaMedicaController::class, 'buscarDoctores'])->name('api.doctores');
-    Route::get('/api/tipos_cita', [CitaMedicaController::class, 'buscarTiposCita'])->name('api.tipos_cita');
-    Route::get('/api/consultorios', [CitaMedicaController::class, 'buscarConsultorios'])->name('api.consultorios');
 
     // Ruta de inicio para usuarios autenticados
     Route::get('/home', [HomeController::class, 'index']);
 });
+
 
 // Ruta de inicio pública
 Route::get('/', [HomeController::class, 'index'])->name('home');

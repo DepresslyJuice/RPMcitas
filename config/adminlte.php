@@ -327,7 +327,7 @@ return [
             'route' => 'citas.index',
             'can' => ['citas', 'dentista.citas']
         ],
-
+        
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-user-injured fa-fw',
@@ -385,7 +385,7 @@ return [
             'route' => 'perfil.index',
         ],
 
-        // [
+                // [
         //     'text' => 'Roles',
         //     'icon' => 'fas fa-user-shield fa-fw',
         //     'route' => 'admin.roles.index',  

@@ -19,12 +19,9 @@ class RoleSeeder extends Seeder
         $dentista = Role::create(['name' => 'Dentista']);
         $cliente = Role::create(['name' => 'Cliente']);
 
-
-
         Permission::create(['name' => 'admin.home'])->syncRoles([$admin, $secretaria, $dentista]);
 
         Permission::create(['name' => 'admin.admin'])->syncRoles([$admin]);
-
 
         // Permisos para la gestión de pacientes
         Permission::create(['name' => 'pacientes'])->syncRoles([$admin, $secretaria]);
